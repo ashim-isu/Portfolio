@@ -122,44 +122,21 @@
         <!-- Resume Button -->
         <a href="assets/pdf/Ashim Panthi_resume.pdf" class="btn btn-primary" target="_blank" style="margin-right: 20px;">View Resume</a>
 
-        <!-- Runaway Button -->
-        <div class="runaway-button-container">
-          <button class="runaway-button">My gym pictures</button>
-        </div> 
-      </div>
-    </div>
-  </div> 
-</section>
+       <!-- Runaway Button -->
+<div class="runaway-button-container">
+  <button class="runaway-button">My gym pictures</button>
+</div>
 
-
-  <style>
-  /* Resume button styling */
-  .btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    text-decoration: none;
-    border-radius: 5px;
-    display: inline-block;
-    background-color: #0078ff;
-    color: white;
-    border: none;
-    transition: background-color 0.3s ease;
-  }
-
-  .btn:hover {
-    background-color: #0056b3;
-  }
-
-     
-  /* Styles for the runaway button */
+<style>
   .runaway-button-container {
     position: relative;
-    height: 200px; /* Defines the movement area for the button */
+    height: 300px; /* More space to run */
+    width: 100%;
     margin-top: 20px;
-    overflow: hidden; /* Ensures the button stays within the container */
+    overflow: hidden;
+    border: 2px dashed #ccc; /* Optional: visualize boundary */
   }
 
-    
   .runaway-button {
     position: absolute;
     padding: 10px 20px;
@@ -175,41 +152,35 @@
   .runaway-button:hover {
     background-color: #d32f2f;
   }
-    
-</style> 
- 
+</style>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const button = document.querySelector('#about .runaway-button');
-    const container = document.querySelector('#about .runaway-button-container');
+    const button = document.querySelector('.runaway-button');
+    const container = document.querySelector('.runaway-button-container');
 
     button.addEventListener('mouseover', () => {
       const containerRect = container.getBoundingClientRect();
       const buttonRect = button.getBoundingClientRect();
 
-      // Generate new random position within the container bounds
-      const newTop = Math.random() * (containerRect.height - buttonRect.height);
-      const newLeft = Math.random() * (containerRect.width - buttonRect.width);
+      const newTop = Math.random() * (container.clientHeight - button.offsetHeight);
+      const newLeft = Math.random() * (container.clientWidth - button.offsetWidth);
 
-      // Apply the new position
-      button.style.top = ${newTop}px;
-      button.style.left = ${newLeft}px;
+      button.style.top = `${newTop}px`;
+      button.style.left = `${newLeft}px`;
 
-      // Add playful jump animation
-      button.style.transform = scale(1.1);
+      button.style.transform = 'scale(1.1)';
       setTimeout(() => {
-        button.style.transform = scale(1);
+        button.style.transform = 'scale(1)';
       }, 100);
     });
 
-    // Prevent the button from being clicked (fallback in case the user gets lucky)
     button.addEventListener('click', (event) => {
       event.preventDefault();
-      alert("Are you gay?");
+      alert("Error: You actually clicked it?! 👀");
     });
   });
 </script>
-
 
 
 
