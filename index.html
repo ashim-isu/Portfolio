@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,6 @@
 <title>Ashim Panthi | Structural Engineer (EIT)</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <style>
@@ -37,7 +37,7 @@ padding:20px 10%;
 position:fixed;
 width:100%;
 top:0;
-background:rgba(5,10,18,.7);
+background:rgba(5,10,18,.8);
 backdrop-filter:blur(10px);
 z-index:1000;
 }
@@ -71,22 +71,22 @@ position:relative;
 
 .hero{
 z-index:3;
-max-width:750px;
+max-width:700px;
 }
 
 .hero h1{
-font-size:64px;
+font-size:60px;
 margin-bottom:10px;
 }
 
 .hero h3{
 color:#3ba7ff;
-margin-bottom:20px;
+margin-bottom:15px;
 }
 
 .hero p{
-opacity:.8;
-margin-bottom:30px;
+opacity:.85;
+margin-bottom:25px;
 }
 
 .btn{
@@ -97,7 +97,7 @@ text-decoration:none;
 color:white;
 }
 
-/* 3D CANVAS */
+/* THREE SCENE */
 
 #scene{
 position:absolute;
@@ -108,25 +108,6 @@ height:100%;
 z-index:1;
 }
 
-/* GRID BACKGROUND */
-
-.grid{
-position:absolute;
-width:200%;
-height:200%;
-background-image:
-linear-gradient(#162133 1px, transparent 1px),
-linear-gradient(90deg,#162133 1px, transparent 1px);
-background-size:70px 70px;
-opacity:.15;
-animation:gridMove 25s linear infinite;
-}
-
-@keyframes gridMove{
-0%{transform:translate(0,0)}
-100%{transform:translate(-70px,-70px)}
-}
-
 /* SECTIONS */
 
 section{
@@ -135,11 +116,11 @@ padding:120px 10%;
 
 h2{
 font-size:36px;
-margin-bottom:50px;
+margin-bottom:40px;
 text-align:center;
 }
 
-/* GLASS CARDS */
+/* CARD STYLE */
 
 .card{
 background:rgba(255,255,255,.05);
@@ -151,8 +132,7 @@ transition:.4s;
 }
 
 .card:hover{
-transform:translateY(-10px);
-box-shadow:0 20px 40px rgba(0,0,0,.6);
+transform:translateY(-8px);
 }
 
 /* PROJECT GRID */
@@ -160,23 +140,17 @@ box-shadow:0 20px 40px rgba(0,0,0,.6);
 .project-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:35px;
+gap:30px;
 }
 
-/* PROJECT IMAGE PLACEHOLDER */
+/* PROJECT IMAGE */
 
 .project-img{
 width:100%;
-height:180px;
-background:#111a28;
+height:200px;
+object-fit:cover;
 border-radius:8px;
 margin-bottom:15px;
-display:flex;
-align-items:center;
-justify-content:center;
-color:#3ba7ff;
-font-size:14px;
-border:1px dashed #3ba7ff;
 }
 
 /* TIMELINE */
@@ -204,13 +178,27 @@ top:5px;
 border-radius:50%;
 }
 
+/* LOAD DIAGRAM CANVAS */
+
+#loadCanvas{
+display:block;
+margin:auto;
+background:#0d1624;
+border-radius:10px;
+}
+
+/* BRIDGE 3D */
+
+#bridgeScene{
+width:100%;
+height:400px;
+}
+
 footer{
 text-align:center;
 padding:40px;
 opacity:.6;
 }
-
-/* SCROLL REVEAL */
 
 .reveal{
 opacity:0;
@@ -236,7 +224,7 @@ transform:translateY(0);
 <a href="#home">Home</a>
 <a href="#about">About</a>
 <a href="#projects">Projects</a>
-<a href="#leadership">Leadership</a>
+<a href="#engineering">Engineering</a>
 <a href="#contact">Contact</a>
 </nav>
 
@@ -248,16 +236,13 @@ transform:translateY(0);
 
 <div id="scene"></div>
 
-<div class="grid"></div>
-
 <div class="hero">
 
 <h1>Structural Engineering Portfolio</h1>
-
 <h3>Engineer-in-Training (EIT)</h3>
 
 <p>
-Focused on structural analysis, seismic design, and earthquake-resistant infrastructure.
+Structural analysis, seismic design and earthquake-resistant infrastructure.
 </p>
 
 <a href="#projects" class="btn">View Projects</a>
@@ -277,7 +262,7 @@ Focused on structural analysis, seismic design, and earthquake-resistant infrast
 
 <p>
 
-I am an Engineer-in-Training (EIT) with a Bachelor’s degree in Civil Engineering from Tribhuvan University. My interests lie in structural analysis, seismic engineering, and the design of earthquake-resistant infrastructure. Through academic projects and technical training, I have developed experience in structural modeling and finite element analysis using engineering tools such as SAP2000, ETABS, AutoCAD, MATLAB, and GIS platforms. I am passionate about applying engineering principles to design safe, resilient structures and contributing to the development of sustainable infrastructure in earthquake-prone regions.
+Ashim Panthi is an Engineer-in-Training (EIT) with a Bachelor’s degree in Civil Engineering from Tribhuvan University. His interests focus on structural analysis, seismic engineering, and the design of earthquake-resistant infrastructure. Through academic research and project work, he has developed experience in structural modeling and finite element analysis using tools such as SAP2000, ETABS, AutoCAD, MATLAB, and GIS platforms. Ashim is passionate about designing resilient structures and contributing to the development of safe infrastructure in earthquake-prone regions.
 
 </p>
 
@@ -296,14 +281,12 @@ I am an Engineer-in-Training (EIT) with a Bachelor’s degree in Civil Engineeri
 
 <div class="card">
 
-<div class="project-img">
-Project Image Placeholder
-</div>
+<img class="project-img" src="assets/img/SIA-Nijgadh-3.jpg">
 
 <h3>Nijgadh International Airport</h3>
 
 <p>
-Comprehensive planning and infrastructure evaluation of Nepal’s proposed international airport including structural considerations.
+Planning and infrastructure evaluation for Nepal’s proposed international airport project including structural considerations.
 </p>
 
 </div>
@@ -311,9 +294,7 @@ Comprehensive planning and infrastructure evaluation of Nepal’s proposed inter
 
 <div class="card">
 
-<div class="project-img">
-Project Image Placeholder
-</div>
+<img class="project-img" src="assets/img/buda.jpg">
 
 <h3>Rammed Earth House</h3>
 
@@ -326,14 +307,12 @@ Seismic resistant housing design integrating traditional Nepali architecture wit
 
 <div class="card">
 
-<div class="project-img">
-Project Image Placeholder
-</div>
+<img class="project-img" src="assets/img/steel.png">
 
 <h3>Steel Structure – Volcano Club</h3>
 
 <p>
-Structural design of a steel building considering earthquake loads and connection detailing.
+Steel building structural design considering earthquake loads and connection detailing.
 </p>
 
 </div>
@@ -341,9 +320,7 @@ Structural design of a steel building considering earthquake loads and connectio
 
 <div class="card">
 
-<div class="project-img">
-Project Image Placeholder
-</div>
+<img class="project-img" src="assets/img/madan.jpeg">
 
 <h3>Madan Bhandari Academy</h3>
 
@@ -358,41 +335,30 @@ Structural redesign addressing torsional irregularities and architectural modifi
 </section>
 
 
-<!-- LEADERSHIP -->
+<!-- ENGINEERING VISUALIZATION -->
 
-<section id="leadership" class="reveal">
+<section id="engineering" class="reveal">
 
-<h2>Leadership</h2>
+<h2>Structural Engineering Visualization</h2>
 
-<div class="timeline">
+<h3 style="text-align:center;margin-bottom:20px;">Beam Load Diagram</h3>
 
-<div class="timeline-item">
-<h3>Gulmi–Kathmandu Student Union</h3>
-<p>Member | 2022 – Present</p>
-</div>
+<canvas id="loadCanvas" width="700" height="200"></canvas>
 
-<div class="timeline-item">
-<h3>Final Year Project Team</h3>
-<p>Team Leader</p>
-</div>
+<br><br>
 
-<div class="timeline-item">
-<h3>College Survey Camp</h3>
-<p>Captain</p>
-</div>
+<h3 style="text-align:center;margin-bottom:20px;">3D Bridge Model</h3>
 
-</div>
+<div id="bridgeScene"></div>
 
 </section>
 
-
-<!-- CONTACT -->
 
 <section id="contact">
 
 <h2>Contact</h2>
 
-<p>Email: ashimpanthi00@gmail.com</p>
+<p style="text-align:center;">Email: ashimpanthi00@gmail.com</p>
 
 </section>
 
@@ -408,26 +374,54 @@ Structural redesign addressing torsional irregularities and architectural modifi
 /* Scroll reveal */
 
 function reveal(){
-
 let reveals=document.querySelectorAll(".reveal");
 
 for(let i=0;i<reveals.length;i++){
-
 let windowHeight=window.innerHeight;
 let elementTop=reveals[i].getBoundingClientRect().top;
 
 if(elementTop<windowHeight-150){
 reveals[i].classList.add("active");
 }
-
 }
-
 }
 
 window.addEventListener("scroll",reveal);
 
 
-/* THREE JS BUILDING SCENE */
+/* STRUCTURAL LOAD DIAGRAM */
+
+const canvas=document.getElementById("loadCanvas");
+const ctx=canvas.getContext("2d");
+
+ctx.strokeStyle="#3ba7ff";
+ctx.lineWidth=4;
+
+ctx.beginPath();
+ctx.moveTo(50,100);
+ctx.lineTo(650,100);
+ctx.stroke();
+
+/* arrows */
+
+for(let i=120;i<=580;i+=60){
+
+ctx.beginPath();
+ctx.moveTo(i,40);
+ctx.lineTo(i,100);
+ctx.stroke();
+
+ctx.beginPath();
+ctx.moveTo(i-5,45);
+ctx.lineTo(i,40);
+ctx.lineTo(i+5,45);
+ctx.fillStyle="#3ba7ff";
+ctx.fill();
+
+}
+
+
+/* THREEJS CITY */
 
 let scene=new THREE.Scene();
 
@@ -445,38 +439,28 @@ renderer.setSize(window.innerWidth,window.innerHeight);
 document.getElementById("scene").appendChild(renderer.domElement);
 
 let light=new THREE.PointLight(0xffffff,1);
-
 light.position.set(10,20,20);
-
 scene.add(light);
-
-/* BUILDINGS */
 
 let buildings=[];
 
 for(let i=0;i<10;i++){
 
-let height=Math.random()*3+2;
+let h=Math.random()*3+2;
 
-let geometry=new THREE.BoxGeometry(1,height,1);
+let geo=new THREE.BoxGeometry(1,h,1);
+let mat=new THREE.MeshStandardMaterial({color:0x1f2e45});
 
-let material=new THREE.MeshStandardMaterial({color:0x1f2e45});
-
-let cube=new THREE.Mesh(geometry,material);
+let cube=new THREE.Mesh(geo,mat);
 
 cube.position.x=i*2-10;
-
-cube.position.y=height/2-2;
+cube.position.y=h/2-2;
 
 scene.add(cube);
-
 buildings.push(cube);
-
 }
 
 camera.position.z=10;
-
-/* EARTHQUAKE SWAY */
 
 function animate(){
 
@@ -485,9 +469,7 @@ requestAnimationFrame(animate);
 let t=Date.now()*0.002;
 
 buildings.forEach((b,i)=>{
-
 b.rotation.z=Math.sin(t+i)*0.05;
-
 });
 
 renderer.render(scene,camera);
@@ -496,7 +478,58 @@ renderer.render(scene,camera);
 
 animate();
 
+
+/* THREEJS BRIDGE */
+
+let bridgeScene=new THREE.Scene();
+let bridgeCamera=new THREE.PerspectiveCamera(60,window.innerWidth/400,0.1,1000);
+
+let bridgeRenderer=new THREE.WebGLRenderer({alpha:true});
+bridgeRenderer.setSize(window.innerWidth,400);
+
+document.getElementById("bridgeScene").appendChild(bridgeRenderer.domElement);
+
+let bridgeLight=new THREE.PointLight(0xffffff,1);
+bridgeLight.position.set(10,20,20);
+bridgeScene.add(bridgeLight);
+
+let deck=new THREE.Mesh(
+new THREE.BoxGeometry(10,.3,1),
+new THREE.MeshStandardMaterial({color:0x3ba7ff})
+);
+
+bridgeScene.add(deck);
+
+/* cables */
+
+for(let i=-4;i<=4;i+=2){
+
+let tower=new THREE.Mesh(
+new THREE.BoxGeometry(.3,3,.3),
+new THREE.MeshStandardMaterial({color:0xffffff})
+);
+
+tower.position.set(i,1.5,0);
+bridgeScene.add(tower);
+
+}
+
+bridgeCamera.position.z=12;
+
+function animateBridge(){
+
+requestAnimationFrame(animateBridge);
+
+deck.rotation.y+=0.002;
+
+bridgeRenderer.render(bridgeScene,bridgeCamera);
+
+}
+
+animateBridge();
+
 </script>
 
 </body>
 </html>
+```
