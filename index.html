@@ -20,9 +20,9 @@ scroll-behavior:smooth;
 
 body{
 font-family:Poppins;
-background:#0b0f17;
+background:#070b12;
 color:white;
-line-height:1.6;
+overflow-x:hidden;
 }
 
 /* NAVBAR */
@@ -32,16 +32,18 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 padding:20px 10%;
-background:#0b0f17;
-position:sticky;
+position:fixed;
+width:100%;
 top:0;
+background:rgba(10,15,25,0.7);
+backdrop-filter:blur(8px);
 z-index:1000;
-border-bottom:1px solid #1d2635;
 }
 
 .logo{
 font-size:22px;
 font-weight:600;
+letter-spacing:1px;
 }
 
 nav a{
@@ -49,7 +51,7 @@ margin-left:25px;
 text-decoration:none;
 color:white;
 font-weight:400;
-transition:0.3s;
+transition:.3s;
 }
 
 nav a:hover{
@@ -61,107 +63,111 @@ color:#3ba7ff;
 #home{
 height:100vh;
 display:flex;
-justify-content:center;
 align-items:center;
+justify-content:center;
 text-align:center;
 position:relative;
 overflow:hidden;
 }
 
+.hero{
+max-width:700px;
+z-index:2;
+}
+
 .hero h1{
-font-size:52px;
+font-size:56px;
 margin-bottom:15px;
 }
 
 .hero p{
-font-size:18px;
-opacity:0.8;
-max-width:600px;
-margin:auto;
+opacity:.8;
 margin-bottom:30px;
 }
 
 .btn{
 background:#3ba7ff;
-padding:12px 30px;
+padding:14px 32px;
 border-radius:6px;
 text-decoration:none;
 color:white;
 }
 
-/* STRUCTURAL GRID BACKGROUND */
+/* GRID BACKGROUND */
 
 .grid{
 position:absolute;
-width:100%;
-height:100%;
+width:200%;
+height:200%;
 background-image:
-linear-gradient(#1c2434 1px, transparent 1px),
-linear-gradient(90deg,#1c2434 1px, transparent 1px);
-background-size:60px 60px;
-animation:gridMove 20s linear infinite;
-opacity:0.25;
+linear-gradient(#162133 1px, transparent 1px),
+linear-gradient(90deg,#162133 1px, transparent 1px);
+background-size:70px 70px;
+animation:gridMove 25s linear infinite;
+opacity:.25;
 }
 
 @keyframes gridMove{
 0%{transform:translate(0,0)}
-100%{transform:translate(60px,60px)}
+100%{transform:translate(-70px,-70px)}
 }
 
-/* FLOATING FEM NODES */
+/* FEM PARTICLES */
 
-.node{
+.particle{
 position:absolute;
 width:6px;
 height:6px;
 background:#3ba7ff;
 border-radius:50%;
-animation:float 10s infinite ease-in-out;
+animation:float 8s infinite ease-in-out;
 }
-
-.node:nth-child(1){top:20%;left:30%}
-.node:nth-child(2){top:60%;left:70%}
-.node:nth-child(3){top:40%;left:50%}
-.node:nth-child(4){top:80%;left:20%}
 
 @keyframes float{
 0%,100%{transform:translateY(0)}
-50%{transform:translateY(-20px)}
+50%{transform:translateY(-30px)}
 }
 
 /* SECTIONS */
 
 section{
-padding:100px 10%;
+padding:120px 10%;
 }
 
 h2{
 font-size:36px;
-margin-bottom:40px;
+margin-bottom:50px;
 text-align:center;
+}
+
+/* GLASS CARDS */
+
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+border-radius:10px;
+padding:30px;
+transition:.4s;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.02);
+box-shadow:0 20px 40px rgba(0,0,0,0.6);
 }
 
 /* ABOUT */
 
 .about-container{
 display:flex;
-gap:40px;
-align-items:center;
+gap:50px;
 flex-wrap:wrap;
+align-items:center;
 }
 
 .about-img img{
 width:260px;
-border-radius:10px;
-}
-
-.about-text{
-max-width:700px;
-}
-
-.about-text ul{
-margin-top:10px;
-margin-bottom:20px;
+border-radius:12px;
 }
 
 /* PROJECTS */
@@ -169,53 +175,46 @@ margin-bottom:20px;
 .project-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:30px;
-}
-
-.project-card{
-background:#121826;
-padding:25px;
-border-radius:10px;
-transition:0.4s;
-border:1px solid #1d2635;
+gap:35px;
 }
 
 .project-card img{
 width:100%;
-border-radius:6px;
+border-radius:8px;
 margin-bottom:15px;
-}
-
-.project-card:hover{
-transform:translateY(-10px);
-box-shadow:0 10px 40px rgba(0,0,0,0.6);
 }
 
 /* RESEARCH */
 
-.research-card{
-background:#121826;
-padding:30px;
-border-radius:10px;
-margin-bottom:30px;
-border:1px solid #1d2635;
-}
-
-.research-card ul{
-margin-top:10px;
+.research-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
 }
 
 /* TIMELINE */
 
 .timeline{
-max-width:600px;
+max-width:700px;
 margin:auto;
 border-left:3px solid #3ba7ff;
 padding-left:30px;
 }
 
 .timeline-item{
-margin-bottom:30px;
+margin-bottom:40px;
+position:relative;
+}
+
+.timeline-item::before{
+content:'';
+width:12px;
+height:12px;
+background:#3ba7ff;
+position:absolute;
+left:-38px;
+top:5px;
+border-radius:50%;
 }
 
 /* CONTACT */
@@ -229,8 +228,37 @@ text-align:center;
 footer{
 text-align:center;
 padding:30px;
-border-top:1px solid #1d2635;
-opacity:0.6;
+opacity:.6;
+}
+
+/* BEAM BENDING ANIMATION */
+
+.beam{
+width:300px;
+height:8px;
+background:#3ba7ff;
+margin:60px auto;
+animation:bend 4s infinite ease-in-out;
+border-radius:10px;
+}
+
+@keyframes bend{
+0%{transform:scaleX(1) rotate(0)}
+50%{transform:scaleX(1.05) rotate(.8deg)}
+100%{transform:scaleX(1) rotate(0)}
+}
+
+/* SCROLL ANIMATION */
+
+.reveal{
+opacity:0;
+transform:translateY(40px);
+transition:1s;
+}
+
+.reveal.active{
+opacity:1;
+transform:translateY(0);
 }
 
 /* MOBILE */
@@ -238,7 +266,7 @@ opacity:0.6;
 @media(max-width:768px){
 
 .hero h1{
-font-size:36px;
+font-size:38px;
 }
 
 .about-container{
@@ -249,7 +277,6 @@ text-align:center;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -269,24 +296,23 @@ text-align:center;
 
 </header>
 
-
 <!-- HERO -->
 
 <section id="home">
 
 <div class="grid"></div>
 
-<div class="node"></div>
-<div class="node"></div>
-<div class="node"></div>
-<div class="node"></div>
+<div class="particle" style="top:20%;left:30%"></div>
+<div class="particle" style="top:60%;left:70%"></div>
+<div class="particle" style="top:40%;left:50%"></div>
+<div class="particle" style="top:80%;left:20%"></div>
 
 <div class="hero">
 
 <h1>Structural Engineering Portfolio</h1>
 
 <p>
-Civil Engineer specializing in structural analysis, earthquake resistant design, and advanced structural modeling using SAP2000.
+Civil Engineer focused on seismic design, structural analysis, and earthquake-resistant infrastructure.
 </p>
 
 <a href="#projects" class="btn">Explore Projects</a>
@@ -298,7 +324,7 @@ Civil Engineer specializing in structural analysis, earthquake resistant design,
 
 <!-- ABOUT -->
 
-<section id="about">
+<section id="about" class="reveal">
 
 <h2>About Me</h2>
 
@@ -310,111 +336,79 @@ Civil Engineer specializing in structural analysis, earthquake resistant design,
 
 </div>
 
-<div class="about-text">
+<div class="card">
 
 <p>
 
-Bachelor in Civil Engineering from Tribhuvan University with strong experience in structural design, seismic analysis and building code comparisons. Skilled in modern structural engineering software and earthquake resistant design principles.
+Bachelor in Civil Engineering from Tribhuvan University. Experienced in structural modeling, seismic analysis and earthquake resistant design using SAP2000.
 
 </p>
 
-<h3>Software Skills</h3>
+<h3>Software</h3>
 
-<ul>
+<p>SAP2000 • ETABS • AutoCAD • MATLAB • ArcGIS • Revit • Python</p>
 
-<li>SAP2000</li>
-<li>ETABS</li>
-<li>AutoCAD</li>
-<li>MATLAB</li>
-<li>ArcGIS</li>
-<li>Autodesk Revit</li>
-<li>Python (Basic)</li>
+<h3>Technical</h3>
 
-</ul>
-
-<h3>Technical Skills</h3>
-
-<ul>
-
-<li>Structural Design</li>
-<li>Structural Analysis</li>
-<li>Seismic Engineering</li>
-<li>Land Surveying</li>
-<li>Quantity Surveying</li>
-
-</ul>
+<p>Structural Analysis • Seismic Engineering • Land Surveying • Quantity Surveying</p>
 
 </div>
 
 </div>
+
+<div class="beam"></div>
 
 </section>
 
 
 <!-- PROJECTS -->
 
-<section id="projects">
+<section id="projects" class="reveal">
 
 <h2>Academic Projects</h2>
 
 <div class="project-grid">
 
-<div class="project-card">
+<div class="card project-card">
 
 <img src="assets/project-placeholder.jpg">
 
 <h3>Nijgadh International Airport</h3>
 
-<p>
-
-Prepared a comprehensive project management report covering project initiation, planning, execution and control for the proposed Nijgadh International Airport project.
-
-</p>
+<p>Full project planning and management report for Nepal’s proposed international airport project.</p>
 
 </div>
 
 
-<div class="project-card">
+<div class="card project-card">
 
 <img src="assets/project-placeholder.jpg">
 
-<h3>Budhanilkantha Rammed Earth House</h3>
+<h3>Rammed Earth House</h3>
 
-<p>
-
-Structural design and analysis of traditional rammed earth structures considering seismic loads, local soil properties and architectural practices.
-
-</p>
+<p>Structural design considering seismic load and traditional Nepali architecture.</p>
 
 </div>
 
 
-<div class="project-card">
+<div class="card project-card">
 
 <img src="assets/project-placeholder.jpg">
 
 <h3>Steel Structure Volcano Club</h3>
 
-<p>
-
-Designed earthquake resistant steel structure. Conducted load analysis, connection design and produced architectural drawings.
-
-</p>
+<p>Designed earthquake resistant steel structure including connection design.</p>
 
 </div>
 
 
-<div class="project-card">
+<div class="card project-card">
 
 <img src="assets/project-placeholder.jpg">
 
-<h3>Madan Bhandari Academy Building</h3>
+<h3>Madan Bhandari Academy</h3>
 
-<p>
-
-Redesigned building structure due to architectural modifications focusing on torsion control, deflection limits and structural stability.
-
-</p>
+<p>Redesigned structural system due to architectural changes and torsion control.</p>
 
 </div>
 
@@ -425,42 +419,27 @@ Redesigned building structure due to architectural modifications focusing on tor
 
 <!-- RESEARCH -->
 
-<section id="research">
+<section id="research" class="reveal">
 
 <h2>Academic Research</h2>
 
-<div class="research-card">
+<div class="research-grid">
 
-<h3>Design Demands of RC Buildings Due to Irregularities</h3>
+<div class="card">
 
-<ul>
+<h3>RC Building Irregularities</h3>
 
-<li>Comparative seismic performance analysis of irregular RC framed buildings.</li>
-
-<li>Finite Element modeling using SAP2000.</li>
-
-<li>Evaluated storey drift, internal forces and seismic demands.</li>
-
-<li>Studied effects of torsional, stiffness and diaphragm irregularities.</li>
-
-</ul>
+<p>Finite element modeling using SAP2000 to study torsional, stiffness and diaphragm irregularities.</p>
 
 </div>
 
+<div class="card">
 
-<div class="research-card">
+<h3>Building Code Comparison</h3>
 
-<h3>Comparative Study of Indian & Nepal Building Codes</h3>
+<p>Comparative seismic analysis between Indian Standard Code and Nepal Building Code.</p>
 
-<ul>
-
-<li>Used SAP2000 response spectrum methodology.</li>
-
-<li>Compared seismic behavior, section demands and drift.</li>
-
-<li>Evaluated internal forces and failure mechanisms.</li>
-
-</ul>
+</div>
 
 </div>
 
@@ -469,7 +448,7 @@ Redesigned building structure due to architectural modifications focusing on tor
 
 <!-- LEADERSHIP -->
 
-<section id="leadership">
+<section id="leadership" class="reveal">
 
 <h2>Leadership</h2>
 
@@ -479,15 +458,15 @@ Redesigned building structure due to architectural modifications focusing on tor
 
 <h3>Gulmi-Kathmandu Student Union</h3>
 
-<p>Member | May 2022 – Present</p>
+<p>Member | 2022 – Present</p>
 
 </div>
 
 <div class="timeline-item">
 
-<h3>College Final Year Project</h3>
+<h3>Final Year Project</h3>
 
-<p>Team Leader | May 2019 – May 2021</p>
+<p>Team Leader | 2019 – 2021</p>
 
 </div>
 
@@ -495,7 +474,7 @@ Redesigned building structure due to architectural modifications focusing on tor
 
 <h3>College Survey Camp</h3>
 
-<p>Captain | May 2019 – May 2021</p>
+<p>Captain | 2019 – 2021</p>
 
 </div>
 
@@ -516,7 +495,6 @@ Redesigned building structure due to architectural modifications focusing on tor
 
 </section>
 
-
 <footer>
 
 <p>© 2026 Ashim Panthi | Structural Engineering Portfolio</p>
@@ -524,19 +502,35 @@ Redesigned building structure due to architectural modifications focusing on tor
 </footer>
 
 
+<script>
+
+/* Scroll reveal animation */
+
+function reveal(){
+
+let reveals=document.querySelectorAll(".reveal");
+
+for(let i=0;i<reveals.length;i++){
+
+let windowHeight=window.innerHeight;
+
+let elementTop=reveals[i].getBoundingClientRect().top;
+
+let elementVisible=150;
+
+if(elementTop<windowHeight-elementVisible){
+
+reveals[i].classList.add("active");
+
+}
+
+}
+
+}
+
+window.addEventListener("scroll",reveal);
+
+</script>
+
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
