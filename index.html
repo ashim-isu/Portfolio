@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -20,7 +19,7 @@ scroll-behavior:smooth;
 
 body{
 font-family:Poppins;
-background:#070b12;
+background:#050a12;
 color:white;
 overflow-x:hidden;
 }
@@ -35,22 +34,20 @@ padding:20px 10%;
 position:fixed;
 width:100%;
 top:0;
-background:rgba(10,15,25,0.7);
-backdrop-filter:blur(8px);
+background:rgba(5,10,18,.8);
+backdrop-filter:blur(10px);
 z-index:1000;
 }
 
 .logo{
 font-size:22px;
 font-weight:600;
-letter-spacing:1px;
 }
 
 nav a{
-margin-left:25px;
+margin-left:30px;
 text-decoration:none;
 color:white;
-font-weight:400;
 transition:.3s;
 }
 
@@ -71,13 +68,13 @@ overflow:hidden;
 }
 
 .hero{
+z-index:5;
 max-width:700px;
-z-index:2;
 }
 
 .hero h1{
-font-size:56px;
-margin-bottom:15px;
+font-size:64px;
+margin-bottom:20px;
 }
 
 .hero p{
@@ -87,24 +84,24 @@ margin-bottom:30px;
 
 .btn{
 background:#3ba7ff;
-padding:14px 32px;
+padding:14px 36px;
 border-radius:6px;
 text-decoration:none;
 color:white;
 }
 
-/* GRID BACKGROUND */
+/* ENGINEERING GRID */
 
 .grid{
 position:absolute;
 width:200%;
 height:200%;
 background-image:
-linear-gradient(#162133 1px, transparent 1px),
-linear-gradient(90deg,#162133 1px, transparent 1px);
+linear-gradient(#18263a 1px, transparent 1px),
+linear-gradient(90deg,#18263a 1px, transparent 1px);
 background-size:70px 70px;
-animation:gridMove 25s linear infinite;
-opacity:.25;
+opacity:.2;
+animation:gridMove 30s linear infinite;
 }
 
 @keyframes gridMove{
@@ -112,12 +109,117 @@ opacity:.25;
 100%{transform:translate(-70px,-70px)}
 }
 
-/* FEM PARTICLES */
+/* EARTHQUAKE WAVES */
+
+.wave{
+position:absolute;
+bottom:0;
+width:100%;
+height:20px;
+background:#3ba7ff;
+opacity:.3;
+animation:waveMove 4s infinite linear;
+}
+
+.wave:nth-child(2){
+bottom:8px;
+animation-delay:1s;
+}
+
+.wave:nth-child(3){
+bottom:16px;
+animation-delay:2s;
+}
+
+@keyframes waveMove{
+
+0%{transform:scaleX(1) translateX(0)}
+
+50%{transform:scaleX(1.3) translateX(-20px)}
+
+100%{transform:scaleX(1) translateX(0)}
+
+}
+
+/* CITY */
+
+.city{
+position:absolute;
+bottom:0;
+width:100%;
+display:flex;
+justify-content:center;
+gap:40px;
+align-items:flex-end;
+height:240px;
+}
+
+/* BUILDINGS */
+
+.building{
+width:70px;
+background:#111d30;
+border:2px solid #233654;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+padding:6px;
+position:relative;
+transform-origin:bottom;
+}
+
+/* WINDOWS */
+
+.window{
+width:8px;
+height:8px;
+background:#3ba7ff;
+margin:3px;
+opacity:.7;
+}
+
+/* BUILDING HEIGHTS */
+
+.b1{height:140px;}
+.b2{height:190px;}
+.b3{height:120px;}
+.b4{height:210px;}
+.b5{height:160px;}
+.b6{height:180px;}
+
+/* STRUCTURAL SWAY */
+
+@keyframes sway1{
+0%{transform:rotate(0)}
+50%{transform:rotate(.8deg)}
+100%{transform:rotate(0)}
+}
+
+@keyframes sway2{
+0%{transform:rotate(0)}
+50%{transform:rotate(-1deg)}
+100%{transform:rotate(0)}
+}
+
+@keyframes sway3{
+0%{transform:rotate(0)}
+50%{transform:rotate(.5deg)}
+100%{transform:rotate(0)}
+}
+
+.b1{animation:sway1 4s infinite}
+.b2{animation:sway2 3s infinite}
+.b3{animation:sway3 5s infinite}
+.b4{animation:sway1 6s infinite}
+.b5{animation:sway2 4.5s infinite}
+.b6{animation:sway3 3.5s infinite}
+
+/* PARTICLES */
 
 .particle{
 position:absolute;
-width:6px;
-height:6px;
+width:5px;
+height:5px;
 background:#3ba7ff;
 border-radius:50%;
 animation:float 8s infinite ease-in-out;
@@ -125,7 +227,7 @@ animation:float 8s infinite ease-in-out;
 
 @keyframes float{
 0%,100%{transform:translateY(0)}
-50%{transform:translateY(-30px)}
+50%{transform:translateY(-40px)}
 }
 
 /* SECTIONS */
@@ -136,59 +238,31 @@ padding:120px 10%;
 
 h2{
 font-size:36px;
-margin-bottom:50px;
+margin-bottom:40px;
 text-align:center;
 }
 
-/* GLASS CARDS */
+/* CARDS */
 
 .card{
-background:rgba(255,255,255,0.05);
-border:1px solid rgba(255,255,255,0.08);
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
 backdrop-filter:blur(10px);
-border-radius:10px;
 padding:30px;
+border-radius:10px;
 transition:.4s;
 }
 
 .card:hover{
-transform:translateY(-10px) scale(1.02);
-box-shadow:0 20px 40px rgba(0,0,0,0.6);
+transform:translateY(-10px);
+box-shadow:0 20px 40px rgba(0,0,0,.6);
 }
 
-/* ABOUT */
-
-.about-container{
-display:flex;
-gap:50px;
-flex-wrap:wrap;
-align-items:center;
-}
-
-.about-img img{
-width:260px;
-border-radius:12px;
-}
-
-/* PROJECTS */
+/* PROJECT GRID */
 
 .project-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:35px;
-}
-
-.project-card img{
-width:100%;
-border-radius:8px;
-margin-bottom:15px;
-}
-
-/* RESEARCH */
-
-.research-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
 gap:30px;
 }
 
@@ -223,32 +297,13 @@ border-radius:50%;
 text-align:center;
 }
 
-/* FOOTER */
-
 footer{
 text-align:center;
 padding:30px;
 opacity:.6;
 }
 
-/* BEAM BENDING ANIMATION */
-
-.beam{
-width:300px;
-height:8px;
-background:#3ba7ff;
-margin:60px auto;
-animation:bend 4s infinite ease-in-out;
-border-radius:10px;
-}
-
-@keyframes bend{
-0%{transform:scaleX(1) rotate(0)}
-50%{transform:scaleX(1.05) rotate(.8deg)}
-100%{transform:scaleX(1) rotate(0)}
-}
-
-/* SCROLL ANIMATION */
+/* SCROLL REVEAL */
 
 .reveal{
 opacity:0;
@@ -259,21 +314,6 @@ transition:1s;
 .reveal.active{
 opacity:1;
 transform:translateY(0);
-}
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-.hero h1{
-font-size:38px;
-}
-
-.about-container{
-flex-direction:column;
-text-align:center;
-}
-
 }
 
 </style>
@@ -289,12 +329,12 @@ text-align:center;
 <a href="#home">Home</a>
 <a href="#about">About</a>
 <a href="#projects">Projects</a>
-<a href="#research">Research</a>
 <a href="#leadership">Leadership</a>
 <a href="#contact">Contact</a>
 </nav>
 
 </header>
+
 
 <!-- HERO -->
 
@@ -303,65 +343,91 @@ text-align:center;
 <div class="grid"></div>
 
 <div class="particle" style="top:20%;left:30%"></div>
-<div class="particle" style="top:60%;left:70%"></div>
-<div class="particle" style="top:40%;left:50%"></div>
-<div class="particle" style="top:80%;left:20%"></div>
+<div class="particle" style="top:70%;left:60%"></div>
+<div class="particle" style="top:40%;left:80%"></div>
 
 <div class="hero">
 
 <h1>Structural Engineering Portfolio</h1>
 
 <p>
-Civil Engineer focused on seismic design, structural analysis, and earthquake-resistant infrastructure.
+Seismic design, structural analysis and earthquake resistant infrastructure.
 </p>
 
 <a href="#projects" class="btn">Explore Projects</a>
 
 </div>
 
+<!-- EARTHQUAKE WAVES -->
+
+<div class="wave"></div>
+<div class="wave"></div>
+<div class="wave"></div>
+
+<!-- CITY -->
+
+<div class="city">
+
+<div class="building b1">
+<div class="window"></div><div class="window"></div><div class="window"></div>
+<div class="window"></div><div class="window"></div>
+</div>
+
+<div class="building b2">
+<div class="window"></div><div class="window"></div><div class="window"></div>
+<div class="window"></div><div class="window"></div>
+<div class="window"></div>
+</div>
+
+<div class="building b3">
+<div class="window"></div><div class="window"></div>
+<div class="window"></div>
+</div>
+
+<div class="building b4">
+<div class="window"></div><div class="window"></div><div class="window"></div>
+<div class="window"></div><div class="window"></div>
+<div class="window"></div>
+</div>
+
+<div class="building b5">
+<div class="window"></div><div class="window"></div>
+<div class="window"></div>
+</div>
+
+<div class="building b6">
+<div class="window"></div><div class="window"></div>
+<div class="window"></div>
+<div class="window"></div>
+</div>
+
+</div>
+
 </section>
 
-
-<!-- ABOUT -->
 
 <section id="about" class="reveal">
 
 <h2>About Me</h2>
 
-<div class="about-container">
-
-<div class="about-img">
-
-<img src="assets/profile-placeholder.jpg">
-
-</div>
-
 <div class="card">
 
 <p>
 
-Bachelor in Civil Engineering from Tribhuvan University. Experienced in structural modeling, seismic analysis and earthquake resistant design using SAP2000.
+Bachelor in Civil Engineering from Tribhuvan University with strong focus on structural modeling, seismic design and earthquake resistant infrastructure.
 
 </p>
 
-<h3>Software</h3>
+<p>
 
-<p>SAP2000 • ETABS • AutoCAD • MATLAB • ArcGIS • Revit • Python</p>
+Software: SAP2000 • ETABS • AutoCAD • MATLAB • ArcGIS • Revit
 
-<h3>Technical</h3>
-
-<p>Structural Analysis • Seismic Engineering • Land Surveying • Quantity Surveying</p>
+</p>
 
 </div>
-
-</div>
-
-<div class="beam"></div>
 
 </section>
 
-
-<!-- PROJECTS -->
 
 <section id="projects" class="reveal">
 
@@ -369,84 +435,30 @@ Bachelor in Civil Engineering from Tribhuvan University. Experienced in structur
 
 <div class="project-grid">
 
-<div class="card project-card">
-
-<img src="assets/project-placeholder.jpg">
-
+<div class="card">
 <h3>Nijgadh International Airport</h3>
-
-<p>Full project planning and management report for Nepal’s proposed international airport project.</p>
-
+<p>Planning and infrastructure analysis.</p>
 </div>
 
-
-<div class="card project-card">
-
-<img src="assets/project-placeholder.jpg">
-
+<div class="card">
 <h3>Rammed Earth House</h3>
-
-<p>Structural design considering seismic load and traditional Nepali architecture.</p>
-
+<p>Seismic resistant structural design.</p>
 </div>
 
-
-<div class="card project-card">
-
-<img src="assets/project-placeholder.jpg">
-
+<div class="card">
 <h3>Steel Structure Volcano Club</h3>
-
-<p>Designed earthquake resistant steel structure including connection design.</p>
-
+<p>Earthquake resistant steel structure.</p>
 </div>
 
-
-<div class="card project-card">
-
-<img src="assets/project-placeholder.jpg">
-
+<div class="card">
 <h3>Madan Bhandari Academy</h3>
-
-<p>Redesigned structural system due to architectural changes and torsion control.</p>
-
+<p>Structural redesign and torsion control.</p>
 </div>
 
 </div>
 
 </section>
 
-
-<!-- RESEARCH -->
-
-<section id="research" class="reveal">
-
-<h2>Academic Research</h2>
-
-<div class="research-grid">
-
-<div class="card">
-
-<h3>RC Building Irregularities</h3>
-
-<p>Finite element modeling using SAP2000 to study torsional, stiffness and diaphragm irregularities.</p>
-
-</div>
-
-<div class="card">
-
-<h3>Building Code Comparison</h3>
-
-<p>Comparative seismic analysis between Indian Standard Code and Nepal Building Code.</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- LEADERSHIP -->
 
 <section id="leadership" class="reveal">
 
@@ -455,35 +467,19 @@ Bachelor in Civil Engineering from Tribhuvan University. Experienced in structur
 <div class="timeline">
 
 <div class="timeline-item">
-
 <h3>Gulmi-Kathmandu Student Union</h3>
-
 <p>Member | 2022 – Present</p>
-
 </div>
 
 <div class="timeline-item">
-
 <h3>Final Year Project</h3>
-
-<p>Team Leader | 2019 – 2021</p>
-
-</div>
-
-<div class="timeline-item">
-
-<h3>College Survey Camp</h3>
-
-<p>Captain | 2019 – 2021</p>
-
+<p>Team Leader</p>
 </div>
 
 </div>
 
 </section>
 
-
-<!-- CONTACT -->
 
 <section id="contact">
 
@@ -491,20 +487,18 @@ Bachelor in Civil Engineering from Tribhuvan University. Experienced in structur
 
 <p>Email: ashimpanthi00@gmail.com</p>
 
-<p>LinkedIn: linkedin.com/in/ashim-panthi-911b1a270</p>
-
 </section>
 
 <footer>
 
-<p>© 2026 Ashim Panthi | Structural Engineering Portfolio</p>
+© 2026 Ashim Panthi
 
 </footer>
 
 
 <script>
 
-/* Scroll reveal animation */
+/* Scroll reveal */
 
 function reveal(){
 
