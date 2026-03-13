@@ -1,535 +1,1516 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ashim Panthi | Structural Engineer (EIT)</title>
+  <meta name="description" content="Ashim Panthi — Structural Engineer (EIT), Graduate Research Assistant, and structural health monitoring researcher building resilient infrastructure through advanced analysis, seismic design, and data-driven engineering." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    :root{
+      --bg:#050813;
+      --bg2:#09101f;
+      --panel:rgba(12,18,33,.68);
+      --panel-strong:rgba(16,24,42,.88);
+      --text:#eef4ff;
+      --muted:#9db0d0;
+      --line:rgba(255,255,255,.09);
+      --blue:#59b7ff;
+      --cyan:#6ce7ff;
+      --violet:#9674ff;
+      --glow:0 0 0 1px rgba(255,255,255,.06), 0 18px 60px rgba(8,17,36,.45);
+      --radius:24px;
+      --radius-sm:18px;
+      --max:1280px;
+    }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family:'Inter',sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(89,183,255,.16), transparent 20%),
+        radial-gradient(circle at 85% 10%, rgba(150,116,255,.14), transparent 22%),
+        radial-gradient(circle at 70% 70%, rgba(108,231,255,.10), transparent 24%),
+        linear-gradient(180deg,#03060d 0%, #07101d 45%, #040812 100%);
+      color:var(--text);
+      overflow-x:hidden;
+      min-height:100vh;
+    }
 
-<title>Ashim Panthi | Structural Engineer (EIT)</title>
+    body::before{
+      content:'';
+      position:fixed;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:72px 72px;
+      mask-image:linear-gradient(to bottom, rgba(255,255,255,.32), transparent 85%);
+      pointer-events:none;
+      z-index:-2;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    #cursorGlow{
+      position:fixed;
+      width:340px;
+      height:340px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(89,183,255,.13), transparent 62%);
+      pointer-events:none;
+      transform:translate(-50%,-50%);
+      z-index:-1;
+      filter:blur(10px);
+    }
 
-<style>
+    a{text-decoration:none;color:inherit;}
+    img{max-width:100%;display:block;}
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-scroll-behavior:smooth;
-}
+    .container{width:min(var(--max), calc(100% - 40px)); margin-inline:auto;}
+    .section{padding:110px 0; position:relative;}
+    .section-title{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:clamp(2rem, 4vw, 3.6rem);
+      line-height:1;
+      margin-bottom:16px;
+      letter-spacing:-.03em;
+    }
+    .section-intro{
+      max-width:760px;
+      color:var(--muted);
+      font-size:1.03rem;
+      line-height:1.8;
+      margin-bottom:34px;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:9px 14px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:999px;
+      background:rgba(255,255,255,.03);
+      color:#cfe2ff;
+      font-size:.84rem;
+      margin-bottom:18px;
+      backdrop-filter:blur(12px);
+    }
+    .eyebrow::before{
+      content:'';
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--cyan),var(--blue));
+      box-shadow:0 0 18px var(--cyan);
+    }
 
-body{
-font-family:Poppins;
-background:#060b13;
-color:white;
-overflow-x:hidden;
-}
+    header{
+      position:fixed;
+      top:16px;
+      left:50%;
+      transform:translateX(-50%);
+      width:min(1240px, calc(100% - 28px));
+      z-index:1000;
+      transition:.35s ease;
+    }
+    .nav-shell{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:15px 18px;
+      background:rgba(8,12,24,.62);
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(18px) saturate(160%);
+      border-radius:22px;
+      box-shadow:var(--glow);
+    }
+    header.scrolled{top:10px;}
+    header.scrolled .nav-shell{background:rgba(7,11,21,.88);}
 
-/* NAVBAR */
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .brand-mark{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      font-family:'Space Grotesk',sans-serif;
+      font-weight:700;
+      background:linear-gradient(135deg, rgba(89,183,255,.24), rgba(150,116,255,.24));
+      border:1px solid rgba(255,255,255,.1);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 10px 30px rgba(89,183,255,.18);
+    }
+    .brand-text strong{display:block;font-size:.98rem;letter-spacing:.02em;}
+    .brand-text span{font-size:.76rem;color:var(--muted);}
 
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 10%;
-position:fixed;
-width:100%;
-top:0;
-background:rgba(5,10,18,.8);
-backdrop-filter:blur(10px);
-z-index:1000;
-}
+    nav{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    nav a{
+      padding:10px 14px;
+      border-radius:12px;
+      color:#d9e8ff;
+      font-size:.95rem;
+      transition:.3s ease;
+    }
+    nav a:hover{
+      background:rgba(255,255,255,.05);
+      color:white;
+    }
 
-.logo{
-font-size:22px;
-font-weight:600;
-}
+    .nav-cta{
+      margin-left:8px;
+      padding:12px 18px;
+      border-radius:14px;
+      font-weight:600;
+      color:#03101e;
+      background:linear-gradient(135deg,var(--cyan),var(--blue));
+      box-shadow:0 12px 34px rgba(89,183,255,.28);
+    }
 
-nav a{
-margin-left:25px;
-text-decoration:none;
-color:white;
-transition:.3s;
-}
+    .hero-section{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      position:relative;
+      overflow:hidden;
+      padding:150px 0 80px;
+    }
+    #scene{
+      position:absolute;
+      inset:0;
+      z-index:0;
+      opacity:.94;
+    }
+    .hero-grid{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:34px;
+      align-items:center;
+    }
 
-nav a:hover{
-color:#3ba7ff;
-}
+    .hero-copy h1{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:clamp(3.2rem, 7vw, 6.8rem);
+      line-height:.95;
+      letter-spacing:-.05em;
+      margin-bottom:18px;
+      text-wrap:balance;
+    }
+    .hero-copy .gradient{
+      background:linear-gradient(135deg,#ffffff 0%, #d4f2ff 30%, #83ccff 68%, #a88dff 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .hero-subline{
+      font-size:1.08rem;
+      line-height:1.9;
+      color:var(--muted);
+      max-width:760px;
+      margin-bottom:28px;
+    }
 
-/* HERO */
+    .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:30px;}
+    .btn{
+      padding:14px 22px;
+      border-radius:16px;
+      font-weight:600;
+      transition:.3s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+    }
+    .btn-primary{
+      color:#04111f;
+      background:linear-gradient(135deg,var(--cyan),var(--blue));
+      box-shadow:0 14px 40px rgba(89,183,255,.26);
+    }
+    .btn-secondary{
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.03);
+      color:#ecf4ff;
+    }
+    .btn:hover{transform:translateY(-3px);}
 
-#home{
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-position:relative;
-}
+    .hero-metrics{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(130px,1fr));
+      gap:16px;
+      margin-top:16px;
+    }
+    .metric{
+      padding:18px;
+      border-radius:20px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(10px);
+    }
+    .metric strong{
+      display:block;
+      font-family:'Space Grotesk',sans-serif;
+      font-size:1.7rem;
+      margin-bottom:6px;
+    }
+    .metric span{color:var(--muted); font-size:.9rem; line-height:1.5;}
 
-.hero{
-z-index:3;
-max-width:700px;
-}
+    .hero-panel{
+      position:relative;
+      padding:24px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:28px;
+      box-shadow:var(--glow);
+      overflow:hidden;
+    }
+    .hero-panel::after{
+      content:'';
+      position:absolute;
+      inset:auto -40px -50px auto;
+      width:180px;
+      height:180px;
+      background:radial-gradient(circle, rgba(89,183,255,.24), transparent 66%);
+      filter:blur(10px);
+    }
+    .panel-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;}
+    .panel-pill{
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      color:#d8e6ff;
+      font-size:.78rem;
+    }
+    .panel-card{
+      padding:18px;
+      border-radius:20px;
+      background:rgba(6,12,24,.62);
+      border:1px solid rgba(255,255,255,.07);
+      margin-bottom:14px;
+    }
+    .panel-card h4{font-size:1.05rem; margin-bottom:8px;}
+    .panel-card p{color:var(--muted); line-height:1.7; font-size:.95rem;}
+    .panel-stack{display:grid; gap:12px; margin-top:16px;}
+    .mini-row{display:flex; justify-content:space-between; align-items:flex-start; gap:12px;}
+    .mini-row strong{font-size:.94rem;}
+    .mini-row span{color:var(--muted); font-size:.86rem;}
+    .sparkline{
+      height:110px;
+      border-radius:18px;
+      margin-top:18px;
+      background:linear-gradient(180deg, rgba(89,183,255,.11), rgba(89,183,255,.02));
+      border:1px solid rgba(255,255,255,.06);
+      position:relative;
+      overflow:hidden;
+    }
+    .sparkline svg{position:absolute; inset:0; width:100%; height:100%;}
 
-.hero h1{
-font-size:60px;
-margin-bottom:10px;
-}
+    .glass{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--glow);
+      backdrop-filter:blur(16px) saturate(140%);
+    }
 
-.hero h3{
-color:#3ba7ff;
-margin-bottom:15px;
-}
+    .about-grid,
+    .impact-grid,
+    .contact-grid,
+    .research-grid{
+      display:grid;
+      gap:24px;
+    }
+    .about-grid{grid-template-columns:1.15fr .85fr;}
+    .about-copy{padding:34px;}
+    .about-copy p{color:var(--muted); line-height:1.95; font-size:1rem;}
+    .about-copy p + p{margin-top:16px;}
 
-.hero p{
-opacity:.85;
-margin-bottom:25px;
-}
+    .info-stack{display:grid; gap:16px; padding:26px;}
+    .info-card{
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.07);
+    }
+    .info-label{font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:#9eb4d4; margin-bottom:8px;}
+    .info-value{font-size:1.02rem; line-height:1.6;}
 
-.btn{
-background:#3ba7ff;
-padding:14px 34px;
-border-radius:6px;
-text-decoration:none;
-color:white;
-}
+    .marquee-wrap{
+      overflow:hidden;
+      padding:14px 0 0;
+      mask-image:linear-gradient(90deg, transparent, white 12%, white 88%, transparent);
+    }
+    .marquee{
+      display:flex;
+      gap:14px;
+      width:max-content;
+      animation:scrollX 28s linear infinite;
+    }
+    .chip{
+      padding:12px 16px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.04);
+      color:#dfeaff;
+      font-size:.9rem;
+      white-space:nowrap;
+    }
+    @keyframes scrollX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* THREE SCENE */
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+    .card{padding:28px; position:relative; overflow:hidden;}
+    .card::before{
+      content:'';
+      position:absolute;
+      inset:-1px;
+      background:linear-gradient(135deg, rgba(89,183,255,.18), transparent 35%, transparent 65%, rgba(150,116,255,.14));
+      opacity:.6;
+      pointer-events:none;
+    }
+    .card > *{position:relative; z-index:1;}
+    .card h3{font-size:1.2rem; margin-bottom:12px;}
+    .card p,.card li{color:var(--muted); line-height:1.75;}
 
-#scene{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:1;
-}
+    .timeline{
+      display:grid;
+      gap:18px;
+      position:relative;
+      padding-left:22px;
+      margin-left:10px;
+    }
+    .timeline::before{
+      content:'';
+      position:absolute;
+      top:4px; bottom:4px; left:0;
+      width:2px;
+      background:linear-gradient(180deg, rgba(108,231,255,.95), rgba(89,183,255,.25));
+    }
+    .timeline-item{
+      position:relative;
+      padding:26px;
+      border-radius:22px;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.07);
+      transform-style:preserve-3d;
+    }
+    .timeline-item::before{
+      content:'';
+      position:absolute;
+      left:-28px; top:30px;
+      width:14px; height:14px;
+      border-radius:50%;
+      background:linear-gradient(135deg,var(--cyan),var(--blue));
+      box-shadow:0 0 0 6px rgba(89,183,255,.14);
+    }
+    .timeline-top{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:12px;}
+    .timeline-top h3{font-size:1.18rem;}
+    .timeline-top span{color:#b3c6e5; font-size:.9rem;}
+    .timeline-item ul{padding-left:18px; margin-top:10px; display:grid; gap:8px;}
 
-/* SECTIONS */
+    .project-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:24px;
+    }
+    .project-card{
+      position:relative;
+      min-height:380px;
+      border-radius:28px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      background:#09101d;
+      box-shadow:var(--glow);
+      isolation:isolate;
+      transform-style:preserve-3d;
+    }
+    .project-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      position:absolute;
+      inset:0;
+      filter:brightness(.42) saturate(1.05);
+      transition:transform .9s ease;
+    }
+    .project-card::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(3,7,14,.18) 0%, rgba(3,7,14,.36) 30%, rgba(3,7,14,.92) 100%);
+      z-index:0;
+    }
+    .project-card:hover img{transform:scale(1.08);}
+    .project-content{
+      position:relative;
+      z-index:1;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      padding:28px;
+    }
+    .tag-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+    .tag{
+      font-size:.78rem;
+      color:#dce9ff;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.09);
+      padding:8px 10px;
+      border-radius:999px;
+      backdrop-filter:blur(8px);
+    }
+    .project-content h3{font-size:1.4rem; margin-bottom:10px;}
+    .project-content p{color:#d2def2; line-height:1.78;}
 
-section{
-padding:120px 10%;
-}
+    .skills-layout{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:24px;
+      align-items:stretch;
+    }
+    .skill-cloud,
+    .skills-panel{padding:26px;}
+    .skill-cloud-grid{display:flex; flex-wrap:wrap; gap:12px;}
+    .skill-pill{
+      padding:12px 16px;
+      border-radius:16px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      color:#eaf2ff;
+      transition:.3s ease;
+    }
+    .skill-pill:hover{transform:translateY(-4px); border-color:rgba(108,231,255,.4);}
+    .skill-group + .skill-group{margin-top:22px;}
+    .skill-group h4{margin-bottom:12px; font-size:1rem; color:#e9f3ff;}
 
-h2{
-font-size:36px;
-margin-bottom:40px;
-text-align:center;
-}
+    .progress-item + .progress-item{margin-top:18px;}
+    .progress-head{display:flex; justify-content:space-between; margin-bottom:8px; color:#eaf3ff;}
+    .progress-bar{
+      height:10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.05);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.07);
+    }
+    .progress-fill{
+      height:100%;
+      width:0;
+      border-radius:inherit;
+      background:linear-gradient(90deg, var(--cyan), var(--blue), var(--violet));
+      box-shadow:0 0 25px rgba(89,183,255,.25);
+      transition:1.4s cubic-bezier(.2,.8,.2,1);
+    }
 
-/* CARD STYLE */
+    .engineering-grid{
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      gap:24px;
+      align-items:stretch;
+    }
+    .viz-card{padding:26px;}
+    .canvas-shell,
+    .bridge-shell{
+      border-radius:24px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(180deg, rgba(8,14,26,.8), rgba(5,9,18,.94));
+      margin-top:18px;
+      position:relative;
+    }
+    #loadCanvas{display:block; width:100%; height:auto; background:transparent;}
+    #bridgeScene{width:100%; height:440px;}
 
-.card{
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.08);
-backdrop-filter:blur(10px);
-padding:30px;
-border-radius:10px;
-transition:.4s;
-}
+    .impact-grid{grid-template-columns:repeat(4,1fr);}
+    .impact-card{padding:24px; text-align:left;}
+    .impact-card strong{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:2rem;
+      display:block;
+      margin-bottom:8px;
+    }
+    .impact-card span{color:var(--muted); line-height:1.65;}
 
-.card:hover{
-transform:translateY(-8px);
-}
+    .publication-card{padding:32px; display:flex; flex-direction:column; gap:14px;}
+    .publication-card a.link{
+      width:max-content;
+      padding:12px 16px;
+      border-radius:14px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      color:#eaf3ff;
+    }
 
-/* PROJECT GRID */
+    .contact-grid{grid-template-columns:1fr .95fr; align-items:start;}
+    .contact-card{padding:32px;}
+    .contact-list{display:grid; gap:16px; margin-top:14px;}
+    .contact-item{
+      padding:16px 18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .contact-item small{display:block; color:#98accb; margin-bottom:6px; text-transform:uppercase; letter-spacing:.08em; font-size:.72rem;}
+    .availability{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+    .availability .slot{
+      padding:16px;
+      border-radius:18px;
+      background:linear-gradient(180deg, rgba(89,183,255,.10), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.08);
+    }
 
-.project-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:30px;
-}
+    footer{
+      padding:36px 0 50px;
+      color:#8ca1c1;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,.06);
+      background:rgba(255,255,255,.02);
+    }
 
-/* PROJECT IMAGE */
+    .reveal{
+      opacity:0;
+      transform:translateY(42px) scale(.985);
+      transition:opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1);
+      will-change:transform, opacity;
+    }
+    .reveal.active{
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
 
-.project-img{
-width:100%;
-height:200px;
-object-fit:cover;
-border-radius:8px;
-margin-bottom:15px;
-}
+    .float{animation:float 6s ease-in-out infinite;}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-/* TIMELINE */
+    @media (prefers-reduced-motion: reduce){
+      *, *::before, *::after{animation:none !important; transition:none !important; scroll-behavior:auto !important;}
+      .reveal{opacity:1; transform:none;}
+    }
 
-.timeline{
-max-width:700px;
-margin:auto;
-border-left:3px solid #3ba7ff;
-padding-left:30px;
-}
+    @media (max-width:1100px){
+      .hero-grid,
+      .about-grid,
+      .skills-layout,
+      .engineering-grid,
+      .contact-grid,
+      .research-grid{grid-template-columns:1fr;}
+      .hero-metrics,
+      .impact-grid{grid-template-columns:repeat(2,1fr);}
+      .project-grid{grid-template-columns:1fr;}
+      nav{display:none;}
+    }
 
-.timeline-item{
-margin-bottom:40px;
-position:relative;
-}
-
-.timeline-item::before{
-content:'';
-width:12px;
-height:12px;
-background:#3ba7ff;
-position:absolute;
-left:-38px;
-top:5px;
-border-radius:50%;
-}
-
-/* LOAD DIAGRAM CANVAS */
-
-#loadCanvas{
-display:block;
-margin:auto;
-background:#0d1624;
-border-radius:10px;
-}
-
-/* BRIDGE 3D */
-
-#bridgeScene{
-width:100%;
-height:400px;
-}
-
-footer{
-text-align:center;
-padding:40px;
-opacity:.6;
-}
-
-.reveal{
-opacity:0;
-transform:translateY(40px);
-transition:1s;
-}
-
-.reveal.active{
-opacity:1;
-transform:translateY(0);
-}
-
-</style>
+    @media (max-width:760px){
+      .section{padding:90px 0;}
+      .container{width:min(var(--max), calc(100% - 24px));}
+      .hero-section{padding-top:130px;}
+      .hero-metrics,
+      .grid-3,
+      .impact-grid,
+      .availability{grid-template-columns:1fr;}
+      .nav-shell{padding:12px 14px;}
+      .brand-text span{display:none;}
+      .hero-copy h1{font-size:clamp(2.8rem, 15vw, 4.2rem);}
+      .panel-top{flex-direction:column; align-items:flex-start; gap:10px;}
+      .card,.about-copy,.skill-cloud,.skills-panel,.viz-card,.contact-card{padding:22px;}
+      #bridgeScene{height:320px;}
+    }
+  </style>
 </head>
-
 <body>
-
-<header>
-
-<div class="logo">Ashim Panthi</div>
-
-<nav>
-<a href="#home">Home</a>
-<a href="#about">About</a>
-<a href="#projects">Projects</a>
-<a href="#engineering">Engineering</a>
-<a href="#contact">Contact</a>
-</nav>
-
-</header>
-
-<!-- HERO -->
-
-<section id="home">
-
-<div id="scene"></div>
-
-<div class="hero">
-
-<h1>Structural Engineering Portfolio</h1>
-<h3>Engineer-in-Training (EIT)</h3>
-
-<p>
-Structural analysis, seismic design and earthquake-resistant infrastructure.
-</p>
-
-<a href="#projects" class="btn">View Projects</a>
-
-</div>
-
-</section>
-
-
-<!-- ABOUT -->
-
-<section id="about" class="reveal">
-
-<h2>About Me</h2>
-
-<div class="card">
-
-<p>
-
-Ashim Panthi is an Engineer-in-Training (EIT) with a Bachelor’s degree in Civil Engineering from Tribhuvan University. His interests focus on structural analysis, seismic engineering, and the design of earthquake-resistant infrastructure. Through academic research and project work, he has developed experience in structural modeling and finite element analysis using tools such as SAP2000, ETABS, AutoCAD, MATLAB, and GIS platforms. Ashim is passionate about designing resilient structures and contributing to the development of safe infrastructure in earthquake-prone regions.
-
-</p>
-
-</div>
-
-</section>
-
-
-<!-- PROJECTS -->
-
-<section id="projects" class="reveal">
-
-<h2>Academic Projects</h2>
-
-<div class="project-grid">
-
-<div class="card">
-
-<img class="project-img" src="assets/img/SIA-Nijgadh-3.jpg">
-
-<h3>Nijgadh International Airport</h3>
-
-<p>
-Planning and infrastructure evaluation for Nepal’s proposed international airport project including structural considerations.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<img class="project-img" src="assets/img/buda.jpg">
-
-<h3>Rammed Earth House</h3>
-
-<p>
-Seismic resistant housing design integrating traditional Nepali architecture with structural engineering principles.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<img class="project-img" src="assets/img/steel.png">
-
-<h3>Steel Structure – Volcano Club</h3>
-
-<p>
-Steel building structural design considering earthquake loads and connection detailing.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<img class="project-img" src="assets/img/madan.jpeg">
-
-<h3>Madan Bhandari Academy</h3>
-
-<p>
-Structural redesign addressing torsional irregularities and architectural modifications.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ENGINEERING VISUALIZATION -->
-
-<section id="engineering" class="reveal">
-
-<h2>Structural Engineering Visualization</h2>
-
-<h3 style="text-align:center;margin-bottom:20px;">Beam Load Diagram</h3>
-
-<canvas id="loadCanvas" width="700" height="200"></canvas>
-
-<br><br>
-
-<h3 style="text-align:center;margin-bottom:20px;">3D Bridge Model</h3>
-
-<div id="bridgeScene"></div>
-
-</section>
-
-
-<section id="contact">
-
-<h2>Contact</h2>
-
-<p style="text-align:center;">Email: ashimpanthi00@gmail.com</p>
-
-</section>
-
-<footer>
-
-© 2026 Ashim Panthi | Structural Engineer (EIT)
-
-</footer>
-
-
-<script>
-
-/* Scroll reveal */
-
-function reveal(){
-let reveals=document.querySelectorAll(".reveal");
-
-for(let i=0;i<reveals.length;i++){
-let windowHeight=window.innerHeight;
-let elementTop=reveals[i].getBoundingClientRect().top;
-
-if(elementTop<windowHeight-150){
-reveals[i].classList.add("active");
-}
-}
-}
-
-window.addEventListener("scroll",reveal);
-
-
-/* STRUCTURAL LOAD DIAGRAM */
-
-const canvas=document.getElementById("loadCanvas");
-const ctx=canvas.getContext("2d");
-
-ctx.strokeStyle="#3ba7ff";
-ctx.lineWidth=4;
-
-ctx.beginPath();
-ctx.moveTo(50,100);
-ctx.lineTo(650,100);
-ctx.stroke();
-
-/* arrows */
-
-for(let i=120;i<=580;i+=60){
-
-ctx.beginPath();
-ctx.moveTo(i,40);
-ctx.lineTo(i,100);
-ctx.stroke();
-
-ctx.beginPath();
-ctx.moveTo(i-5,45);
-ctx.lineTo(i,40);
-ctx.lineTo(i+5,45);
-ctx.fillStyle="#3ba7ff";
-ctx.fill();
-
-}
-
-
-/* THREEJS CITY */
-
-let scene=new THREE.Scene();
-
-let camera=new THREE.PerspectiveCamera(
-75,
-window.innerWidth/window.innerHeight,
-0.1,
-1000
-);
-
-let renderer=new THREE.WebGLRenderer({alpha:true});
-
-renderer.setSize(window.innerWidth,window.innerHeight);
-
-document.getElementById("scene").appendChild(renderer.domElement);
-
-let light=new THREE.PointLight(0xffffff,1);
-light.position.set(10,20,20);
-scene.add(light);
-
-let buildings=[];
-
-for(let i=0;i<10;i++){
-
-let h=Math.random()*3+2;
-
-let geo=new THREE.BoxGeometry(1,h,1);
-let mat=new THREE.MeshStandardMaterial({color:0x1f2e45});
-
-let cube=new THREE.Mesh(geo,mat);
-
-cube.position.x=i*2-10;
-cube.position.y=h/2-2;
-
-scene.add(cube);
-buildings.push(cube);
-}
-
-camera.position.z=10;
-
-function animate(){
-
-requestAnimationFrame(animate);
-
-let t=Date.now()*0.002;
-
-buildings.forEach((b,i)=>{
-b.rotation.z=Math.sin(t+i)*0.05;
-});
-
-renderer.render(scene,camera);
-
-}
-
-animate();
-
-
-/* THREEJS BRIDGE */
-
-let bridgeScene=new THREE.Scene();
-let bridgeCamera=new THREE.PerspectiveCamera(60,window.innerWidth/400,0.1,1000);
-
-let bridgeRenderer=new THREE.WebGLRenderer({alpha:true});
-bridgeRenderer.setSize(window.innerWidth,400);
-
-document.getElementById("bridgeScene").appendChild(bridgeRenderer.domElement);
-
-let bridgeLight=new THREE.PointLight(0xffffff,1);
-bridgeLight.position.set(10,20,20);
-bridgeScene.add(bridgeLight);
-
-let deck=new THREE.Mesh(
-new THREE.BoxGeometry(10,.3,1),
-new THREE.MeshStandardMaterial({color:0x3ba7ff})
-);
-
-bridgeScene.add(deck);
-
-/* cables */
-
-for(let i=-4;i<=4;i+=2){
-
-let tower=new THREE.Mesh(
-new THREE.BoxGeometry(.3,3,.3),
-new THREE.MeshStandardMaterial({color:0xffffff})
-);
-
-tower.position.set(i,1.5,0);
-bridgeScene.add(tower);
-
-}
-
-bridgeCamera.position.z=12;
-
-function animateBridge(){
-
-requestAnimationFrame(animateBridge);
-
-deck.rotation.y+=0.002;
-
-bridgeRenderer.render(bridgeScene,bridgeCamera);
-
-}
-
-animateBridge();
-
-</script>
-
+  <div id="cursorGlow"></div>
+
+  <header id="header">
+    <div class="nav-shell">
+      <div class="brand">
+        <div class="brand-mark">AP</div>
+        <div class="brand-text">
+          <strong>Ashim Panthi</strong>
+          <span>Structural Engineer (EIT) · Researcher · Designer</span>
+        </div>
+      </div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#engineering">Engineering</a>
+        <a href="#research">Research</a>
+        <a href="#contact">Contact</a>
+        <a class="nav-cta" href="#contact">Let’s Build</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero-section">
+      <div id="scene"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal active">
+          <div class="eyebrow">Graduate Structural Engineer · Iowa State University</div>
+          <h1>
+            Designing <span class="gradient">resilient structures</span>
+            with seismic intelligence, computational rigor, and modern engineering vision.
+          </h1>
+          <p class="hero-subline">
+            Engineer-in-Training (EIT) pursuing an M.S. in Structural Engineering at Iowa State University, blending structural analysis, finite element modeling, seismic design, and data-driven structural health monitoring to deliver safer buildings and infrastructure.
+          </p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">Explore Projects</a>
+            <a href="#contact" class="btn btn-secondary">Contact Ashim</a>
+          </div>
+          <div class="hero-metrics">
+            <div class="metric glass"><strong>3.8</strong><span>Graduate GPA in Structural Engineering at Iowa State University</span></div>
+            <div class="metric glass"><strong>2+</strong><span>Years of professional structural and civil engineering experience</span></div>
+            <div class="metric glass"><strong>5+</strong><span>Advanced software platforms across design, analysis, and drafting</span></div>
+            <div class="metric glass"><strong>EIT</strong><span>FE Civil passed with international licensure background</span></div>
+          </div>
+        </div>
+
+        <aside class="hero-panel reveal float">
+          <div class="panel-top">
+            <div>
+              <div class="info-label">Current Focus</div>
+              <h3 style="font-size:1.45rem; font-family:'Space Grotesk',sans-serif;">Structural systems, seismic performance, and Fast-TDA for SHM</h3>
+            </div>
+            <div class="panel-pill">Open to structural engineering opportunities</div>
+          </div>
+
+          <div class="panel-card">
+            <h4>What I build</h4>
+            <p>High-performance structural models, earthquake-resilient design strategies, construction-ready technical documentation, and research workflows that translate vibration data into engineering insight.</p>
+          </div>
+
+          <div class="panel-stack">
+            <div class="panel-card mini-row">
+              <div>
+                <strong>Graduate Research Assistant</strong>
+                <span>Iowa State University · Fast topological data analysis for structural response</span>
+              </div>
+              <span>2025–Present</span>
+            </div>
+            <div class="panel-card mini-row">
+              <div>
+                <strong>Civil Engineer</strong>
+                <span>Pro Eth Pvt. Ltd. · RC cargo building, steel systems, redesign and seismic studies</span>
+              </div>
+              <span>2023–2024</span>
+            </div>
+          </div>
+
+          <div class="sparkline" aria-hidden="true">
+            <svg viewBox="0 0 500 120" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#6ce7ff"/>
+                  <stop offset="60%" stop-color="#59b7ff"/>
+                  <stop offset="100%" stop-color="#9674ff"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,95 C40,88 60,40 100,48 C140,56 170,92 210,70 C250,48 275,18 320,30 C365,42 385,95 420,80 C455,65 470,40 500,26" fill="none" stroke="url(#lineGrad)" stroke-width="4" stroke-linecap="round"/>
+              <path d="M0,120 L0,95 C40,88 60,40 100,48 C140,56 170,92 210,70 C250,48 275,18 320,30 C365,42 385,95 420,80 C455,65 470,40 500,26 L500,120 Z" fill="rgba(89,183,255,.12)"/>
+            </svg>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="container">
+        <div class="marquee-wrap">
+          <div class="marquee">
+            <div class="chip">SAP2000</div>
+            <div class="chip">ETABS</div>
+            <div class="chip">STAAD.Pro</div>
+            <div class="chip">ANSYS</div>
+            <div class="chip">Revit</div>
+            <div class="chip">AutoCAD</div>
+            <div class="chip">Python</div>
+            <div class="chip">MATLAB</div>
+            <div class="chip">ArcGIS</div>
+            <div class="chip">AISC 360</div>
+            <div class="chip">ACI 318</div>
+            <div class="chip">ASCE 7</div>
+            <div class="chip">Seismic Analysis</div>
+            <div class="chip">Finite Element Modeling</div>
+            <div class="chip">Structural Health Monitoring</div>
+            <div class="chip">SAP2000</div>
+            <div class="chip">ETABS</div>
+            <div class="chip">STAAD.Pro</div>
+            <div class="chip">ANSYS</div>
+            <div class="chip">Revit</div>
+            <div class="chip">Python</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section reveal">
+      <div class="container">
+        <div class="eyebrow">About</div>
+        <h2 class="section-title">Engineering depth with research-driven curiosity</h2>
+        <p class="section-intro">
+          This portfolio keeps the original core story and expands it with the academic, technical, and professional depth reflected in Ashim’s resume — presenting a more complete picture of an engineer working across structural systems, seismic behavior, finite element analysis, and emerging data-driven methods for infrastructure intelligence.
+        </p>
+        <div class="about-grid">
+          <div class="about-copy glass">
+            <p>
+              Ashim Panthi is an Engineer-in-Training (EIT) with a Bachelor’s degree in Civil Engineering from Tribhuvan University and is currently pursuing a Master of Science in Structural Engineering at Iowa State University. His work lives at the intersection of structural design, seismic performance, computational analysis, and structural health monitoring.
+            </p>
+            <p>
+              He brings hands-on experience in analysis and design of steel and reinforced concrete systems for buildings and infrastructure, including cargo facilities, educational buildings, earthquake-resistant earthen structures, and vibration-conscious steel systems in dense urban environments. Alongside practice, he develops Python- and MATLAB-based engineering workflows for feature extraction, machine learning, and data interpretation from structural response signals.
+            </p>
+            <p>
+              Ashim is especially interested in structural consulting roles that involve modeling, design calculations, construction documentation, code-based decision making, and innovative methods that make infrastructure safer, smarter, and more resilient in high-risk environments.
+            </p>
+          </div>
+
+          <div class="info-stack glass">
+            <div class="info-card">
+              <div class="info-label">Education</div>
+              <div class="info-value"><strong>M.S. Structural Engineering</strong><br>Iowa State University · Expected June 2026 · GPA 3.8</div>
+            </div>
+            <div class="info-card">
+              <div class="info-label">Licensure</div>
+              <div class="info-value"><strong>Engineer-in-Training (EIT)</strong><br>FE Civil Passed · Registered Civil Engineer, Nepal Engineering Council</div>
+            </div>
+            <div class="info-card">
+              <div class="info-label">Core Interests</div>
+              <div class="info-value">Seismic engineering, structural dynamics, RC and steel design, finite element modeling, and vibration-based structural health monitoring.</div>
+            </div>
+            <div class="info-card">
+              <div class="info-label">Location</div>
+              <div class="info-value">Ames, Iowa · Available for structural engineering opportunities and collaborative research work.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Experience</div>
+        <h2 class="section-title">Professional and academic experience</h2>
+        <p class="section-intro">
+          From field-oriented structural redesign to graduate research on vibration-derived features, Ashim’s experience combines practice, teaching, analysis, and research communication.
+        </p>
+
+        <div class="timeline glass" style="padding:28px 28px 28px 34px; border-radius:28px;">
+          <div class="timeline-item tilt-card">
+            <div class="timeline-top">
+              <div>
+                <h3>Graduate Research Assistant · Iowa State University</h3>
+                <span>Ames, Iowa</span>
+              </div>
+              <span>Spring 2025 – Present</span>
+            </div>
+            <p>Conducting research on fast topological data analysis (Fast-TDA) for efficient feature extraction from structural response data, with a focus on engineering-grade workflows for vibration-based structural health monitoring.</p>
+            <ul>
+              <li>Developing Python-based data analysis and machine learning pipelines for engineering applications.</li>
+              <li>Investigating data-driven methods for condition assessment from structural vibration signals.</li>
+              <li>Bridging research methodology with practical structural monitoring applications.</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item tilt-card">
+            <div class="timeline-top">
+              <div>
+                <h3>Graduate Teaching Assistant — Structural Analysis</h3>
+                <span>Iowa State University · Ames, Iowa</span>
+              </div>
+              <span>Fall 2025</span>
+            </div>
+            <p>Supported undergraduate structural analysis education with a strong emphasis on conceptual clarity and software-based interpretation.</p>
+            <ul>
+              <li>Conducted tutorial sessions and office hours on force methods, displacement methods, influence lines, and matrix structural analysis.</li>
+              <li>Graded assignments, quizzes, exams, and design projects using consistent evaluation standards.</li>
+              <li>Trained students in SAP2000-based modeling, load application, and result interpretation.</li>
+            </ul>
+          </div>
+
+          <div class="timeline-item tilt-card">
+            <div class="timeline-top">
+              <div>
+                <h3>Civil Engineer · Pro Eth Pvt. Ltd.</h3>
+                <span>Nepal</span>
+              </div>
+              <span>May 2023 – Dec 2024</span>
+            </div>
+            <p>Worked across design, analysis, reporting, and drawing production for major infrastructure and building projects involving reinforced concrete systems, seismic assessment, and redesign under changing architectural constraints.</p>
+            <ul>
+              <li><strong>Nijgadh International Airport:</strong> Performed structural analysis and design of a reinforced concrete cargo building, including load evaluation, modeling, construction drawings, and monthly progress reporting.</li>
+              <li><strong>Budhanilkantha Rammed Earth House:</strong> Conducted seismic analysis and structural design using local materials, with experimental data interpretation supporting earthquake-resistant earthen construction guidance.</li>
+              <li><strong>Steel Structure Night Club, Thamel:</strong> Designed an earthquake- and vibration-resistant steel structural system with lateral analysis, gravity design, connection detailing, and construction drawings.</li>
+              <li><strong>Madan Bhandari Academy of Health Sciences:</strong> Led redesign and re-analysis triggered by architectural modifications during construction, checking deflection, torsion, and serviceability under revised loading conditions.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Projects</div>
+        <h2 class="section-title">Selected academic and applied engineering projects</h2>
+        <p class="section-intro">
+          The original portfolio projects remain, now enriched with resume-backed details and additional graduate work that better reflects the full technical range of Ashim’s experience.
+        </p>
+
+        <div class="project-grid">
+          <article class="project-card tilt-card">
+            <img src="assets/img/SIA-Nijgadh-3.jpg" alt="Nijgadh International Airport project image">
+            <div class="project-content">
+              <div class="tag-row">
+                <span class="tag">Reinforced Concrete</span>
+                <span class="tag">Infrastructure</span>
+                <span class="tag">Construction Drawings</span>
+              </div>
+              <h3>Nijgadh International Airport</h3>
+              <p>Planning and structural evaluation for Nepal’s proposed national-scale airport development, including analysis and design of a reinforced concrete cargo building, load evaluation, structural modeling, progress reporting, and drawing preparation.</p>
+            </div>
+          </article>
+
+          <article class="project-card tilt-card">
+            <img src="assets/img/buda.jpg" alt="Budhanilkantha rammed earth house image">
+            <div class="project-content">
+              <div class="tag-row">
+                <span class="tag">Seismic Design</span>
+                <span class="tag">Earthen Construction</span>
+                <span class="tag">Local Materials</span>
+              </div>
+              <h3>Rammed Earth House</h3>
+              <p>Seismic-resistant housing design integrating traditional Nepali architecture with structural engineering principles, supported by experimental data interpretation and performance-oriented design thinking for earthen structures.</p>
+            </div>
+          </article>
+
+          <article class="project-card tilt-card">
+            <img src="assets/img/steel.png" alt="Steel structure club image">
+            <div class="project-content">
+              <div class="tag-row">
+                <span class="tag">Steel Design</span>
+                <span class="tag">High Seismic Zone</span>
+                <span class="tag">Connection Detailing</span>
+              </div>
+              <h3>Steel Structure – Volcano Club</h3>
+              <p>Steel building design focused on earthquake and vibration resistance in a dense urban environment, including gravity and lateral load analysis, connection detailing, and construction-ready structural drawings.</p>
+            </div>
+          </article>
+
+          <article class="project-card tilt-card">
+            <img src="assets/img/madan.jpeg" alt="Madan Bhandari Academy project image">
+            <div class="project-content">
+              <div class="tag-row">
+                <span class="tag">Redesign</span>
+                <span class="tag">Serviceability</span>
+                <span class="tag">Torsion Check</span>
+              </div>
+              <h3>Madan Bhandari Academy</h3>
+              <p>Structural redesign and re-analysis of an institutional building to address architectural changes during construction, with attention to torsional irregularities, deflection behavior, and serviceability under revised demands.</p>
+            </div>
+          </article>
+
+          <article class="project-card tilt-card">
+            <img src="assets/img/steel.png" alt="Tall building control project image">
+            <div class="project-content">
+              <div class="tag-row">
+                <span class="tag">MATLAB</span>
+                <span class="tag">Structural Dynamics</span>
+                <span class="tag">Control Systems</span>
+              </div>
+              <h3>Semi-Active Friction Damper Control for Tall Buildings</h3>
+              <p>Modeled a 30-story MDOF building and applied LQR-based semi-active control to reduce inter-story drift below 0.5% while keeping floor acceleration within FEMA-oriented performance limits.</p>
+            </div>
+          </article>
+
+          <article class="project-card tilt-card">
+            <img src="assets/img/SIA-Nijgadh-3.jpg" alt="Sensor optimization project image">
+            <div class="project-content">
+              <div class="tag-row">
+                <span class="tag">SAP2000</span>
+                <span class="tag">MATLAB</span>
+                <span class="tag">SHM</span>
+              </div>
+              <h3>Structural Health Monitoring & Sensor Optimization</h3>
+              <p>Built FEM-based workflows for sensor placement optimization and damage detection using CWT and RLS methods, combining modeling, signal interpretation, and applied monitoring strategies.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Capabilities</div>
+        <h2 class="section-title">Software, design codes, and technical strengths</h2>
+        <p class="section-intro">
+          A premium engineering portfolio should show not only projects, but also the systems, tools, and code-backed competencies behind the work.
+        </p>
+
+        <div class="skills-layout">
+          <div class="skill-cloud glass">
+            <div class="skill-group">
+              <h4>Software / Programming</h4>
+              <div class="skill-cloud-grid">
+                <span class="skill-pill">AutoCAD</span>
+                <span class="skill-pill">SAP2000</span>
+                <span class="skill-pill">ETABS</span>
+                <span class="skill-pill">STAAD.Pro</span>
+                <span class="skill-pill">ANSYS</span>
+                <span class="skill-pill">Revit</span>
+                <span class="skill-pill">ArcGIS</span>
+                <span class="skill-pill">MATLAB</span>
+                <span class="skill-pill">Python</span>
+                <span class="skill-pill">MS Excel</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h4>Structural Engineering</h4>
+              <div class="skill-cloud-grid">
+                <span class="skill-pill">Steel Design</span>
+                <span class="skill-pill">RC Design</span>
+                <span class="skill-pill">Seismic Analysis</span>
+                <span class="skill-pill">Finite Element Modeling</span>
+                <span class="skill-pill">Quantity Estimation</span>
+                <span class="skill-pill">Drafting</span>
+                <span class="skill-pill">Technical Reporting</span>
+                <span class="skill-pill">Structural Dynamics</span>
+                <span class="skill-pill">Structural Health Monitoring</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h4>Codes & Standards</h4>
+              <div class="skill-cloud-grid">
+                <span class="skill-pill">ACI 318</span>
+                <span class="skill-pill">AISC 360</span>
+                <span class="skill-pill">ASCE 7</span>
+                <span class="skill-pill">NBC (Nepal)</span>
+                <span class="skill-pill">IS Codes</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h4>Field & Language</h4>
+              <div class="skill-cloud-grid">
+                <span class="skill-pill">Auto Level</span>
+                <span class="skill-pill">Theodolite</span>
+                <span class="skill-pill">Total Station</span>
+                <span class="skill-pill">Lathe</span>
+                <span class="skill-pill">Milling</span>
+                <span class="skill-pill">Welding</span>
+                <span class="skill-pill">Nepali</span>
+                <span class="skill-pill">English</span>
+                <span class="skill-pill">Hindi</span>
+                <span class="skill-pill">German (Beginner)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills-panel glass">
+            <div class="progress-item">
+              <div class="progress-head"><span>Structural Analysis & Modeling</span><span>96%</span></div>
+              <div class="progress-bar"><div class="progress-fill" data-width="96%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-head"><span>Seismic Design & Dynamics</span><span>93%</span></div>
+              <div class="progress-bar"><div class="progress-fill" data-width="93%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-head"><span>RC / Steel Design Workflow</span><span>92%</span></div>
+              <div class="progress-bar"><div class="progress-fill" data-width="92%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-head"><span>Python / MATLAB for Engineering</span><span>90%</span></div>
+              <div class="progress-bar"><div class="progress-fill" data-width="90%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-head"><span>Construction Documentation</span><span>88%</span></div>
+              <div class="progress-bar"><div class="progress-fill" data-width="88%"></div></div>
+            </div>
+            <div class="progress-item">
+              <div class="progress-head"><span>Research Communication</span><span>86%</span></div>
+              <div class="progress-bar"><div class="progress-fill" data-width="86%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="engineering" class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Interactive Engineering</div>
+        <h2 class="section-title">Structural engineering visualizations</h2>
+        <p class="section-intro">
+          These interactive elements keep the original portfolio spirit but present it with more polish, motion, spatial depth, and visual storytelling.
+        </p>
+
+        <div class="engineering-grid">
+          <div class="viz-card glass">
+            <h3 style="font-size:1.35rem; font-family:'Space Grotesk',sans-serif;">Beam load diagram</h3>
+            <p style="color:var(--muted); line-height:1.8; margin-top:8px;">A refined animated beam diagram communicates distributed loading, reaction logic, and engineering precision using subtle motion and premium visual treatment.</p>
+            <div class="canvas-shell">
+              <canvas id="loadCanvas" width="900" height="300"></canvas>
+            </div>
+          </div>
+
+          <div class="viz-card glass">
+            <h3 style="font-size:1.35rem; font-family:'Space Grotesk',sans-serif;">3D bridge visualization</h3>
+            <p style="color:var(--muted); line-height:1.8; margin-top:8px;">A clean three-dimensional bridge scene gives the portfolio a cinematic engineering presence while reinforcing the structural design theme.</p>
+            <div class="bridge-shell">
+              <div id="bridgeScene"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Coursework & Strengths</div>
+        <h2 class="section-title">Academic foundation built for consulting and research</h2>
+        <div class="grid-3">
+          <div class="card glass tilt-card">
+            <h3>Graduate Coursework</h3>
+            <p>Structural Dynamics, Earthquake-Resistant Design, Structural Health Monitoring, Finite Element Analysis, Structural Steel Design II, Reinforced Concrete Design II, Seismic Methods in Exploration, and Structural Analysis II.</p>
+          </div>
+          <div class="card glass tilt-card">
+            <h3>Leadership & Activities</h3>
+            <p>Member of Gulmi Kathmandu Student Union, Undergraduate Final Year Project Team Leader, and Captain of College Survey Camp — reflecting initiative, team coordination, and field leadership.</p>
+          </div>
+          <div class="card glass tilt-card">
+            <h3>Awards & Recognition</h3>
+            <p>Received semester-by-semester academic scholarship recognition during the bachelor’s program and a Letter of Appreciation from Resunga Municipality for COVID-19 volunteering.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="research" class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Research</div>
+        <h2 class="section-title">Research and publication footprint</h2>
+        <p class="section-intro">
+          A modern engineering portfolio becomes more compelling when it connects applied design experience with published inquiry and ongoing graduate research.
+        </p>
+        <div class="research-grid">
+          <div class="publication-card glass">
+            <div class="info-label">Published Research</div>
+            <h3 style="font-size:1.45rem; font-family:'Space Grotesk',sans-serif;">Design Demands of RC Buildings Due to Irregularities</h3>
+            <p style="color:var(--muted); line-height:1.85;">This research reflects Ashim’s interest in how irregularity-driven structural behavior affects reinforced concrete building demand, directly aligning with seismic performance, analysis rigor, and design sensitivity in real-world structures.</p>
+            <a class="link" href="https://doi.org/10.3126/jacem.v8i1.55915" target="_blank" rel="noopener">View DOI</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Impact Snapshot</div>
+        <h2 class="section-title">What this portfolio now does better</h2>
+        <div class="impact-grid">
+          <div class="impact-card glass tilt-card"><strong>Deeper</strong><span>Expanded from a simple project page into a more complete professional narrative grounded in the resume.</span></div>
+          <div class="impact-card glass tilt-card"><strong>Sharper</strong><span>Premium visual hierarchy, glassmorphism, cinematic gradients, and layered motion lift the brand quality.</span></div>
+          <div class="impact-card glass tilt-card"><strong>Smarter</strong><span>Interactive visualizations, skill architecture, and motion systems make the portfolio feel product-level rather than template-based.</span></div>
+          <div class="impact-card glass tilt-card"><strong>Stronger</strong><span>Better alignment with consulting, design, graduate research, and early-career structural engineering opportunities.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section reveal">
+      <div class="container">
+        <div class="eyebrow">Contact</div>
+        <h2 class="section-title">Let’s connect</h2>
+        <p class="section-intro">Whether it is structural design, seismic analysis, graduate research collaboration, or engineering problem-solving, Ashim is ready to contribute with precision and curiosity.</p>
+        <div class="contact-grid">
+          <div class="contact-card glass">
+            <h3 style="font-size:1.35rem; font-family:'Space Grotesk',sans-serif;">Get in touch</h3>
+            <div class="contact-list">
+              <div class="contact-item">
+                <small>Email</small>
+                <a href="mailto:ashim00@iastate.edu">ashim00@iastate.edu</a>
+              </div>
+              <div class="contact-item">
+                <small>Phone</small>
+                <a href="tel:+14694516766">(469) 451-6766</a>
+              </div>
+              <div class="contact-item">
+                <small>LinkedIn</small>
+                <a href="https://linkedin.com/in/ashim-panthi-911b1a270" target="_blank" rel="noopener">linkedin.com/in/ashim-panthi-911b1a270</a>
+              </div>
+              <div class="contact-item">
+                <small>Location</small>
+                <span>Ames, Iowa 50014</span>
+              </div>
+            </div>
+          </div>
+          <div class="contact-card glass">
+            <h3 style="font-size:1.35rem; font-family:'Space Grotesk',sans-serif;">Professional fit</h3>
+            <p style="color:var(--muted); line-height:1.85;">Best aligned with structural consulting, building and bridge design support, seismic analysis roles, graduate engineering opportunities, and technical positions that value both computational rigor and clear engineering documentation.</p>
+            <div class="availability">
+              <div class="slot">
+                <div class="info-label">Best for</div>
+                <div>Structural modeling, design calculations, analysis reports, and code-based design workflows.</div>
+              </div>
+              <div class="slot">
+                <div class="info-label">Also strong in</div>
+                <div>Research programming, SHM analysis, finite element studies, and teaching-oriented technical communication.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Ashim Panthi · Structural Engineer (EIT) · Built with structural logic, motion, and modern visual craft.
+  </footer>
+
+  <script>
+    const header = document.getElementById('header');
+    const cursorGlow = document.getElementById('cursorGlow');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    if(!prefersReduced){
+      window.addEventListener('mousemove', (e) => {
+        cursorGlow.style.left = e.clientX + 'px';
+        cursorGlow.style.top = e.clientY + 'px';
+      });
+    }
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('active');
+        }
+      });
+    }, {threshold: 0.16});
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    const progressObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.querySelectorAll('.progress-fill').forEach(bar => {
+            bar.style.width = bar.dataset.width;
+          });
+        }
+      });
+    }, {threshold:.35});
+    document.querySelectorAll('.skills-panel').forEach(el => progressObserver.observe(el));
+
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      if(prefersReduced) return;
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rx = ((y / rect.height) - .5) * -8;
+        const ry = ((x / rect.width) - .5) * 10;
+        card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+
+    // HERO THREE SCENE
+    const heroScene = new THREE.Scene();
+    const heroCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const heroRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
+    heroRenderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('scene').appendChild(heroRenderer.domElement);
+
+    heroCamera.position.set(0, 1.6, 14);
+
+    const ambient = new THREE.AmbientLight(0x9fd6ff, 0.7);
+    heroScene.add(ambient);
+    const pointLight = new THREE.PointLight(0xbfe8ff, 1.25, 100);
+    pointLight.position.set(8, 10, 12);
+    heroScene.add(pointLight);
+
+    const gridGroup = new THREE.Group();
+    heroScene.add(gridGroup);
+
+    const buildings = [];
+    const palette = [0x13243b, 0x17314f, 0x1d3d63, 0x1b2946];
+    for(let z = -10; z <= 6; z += 2){
+      for(let x = -10; x <= 10; x += 2){
+        if(Math.random() > 0.62) continue;
+        const h = Math.random() * 4 + 0.6;
+        const geo = new THREE.BoxGeometry(1.1, h, 1.1);
+        const mat = new THREE.MeshStandardMaterial({ color: palette[Math.floor(Math.random() * palette.length)], roughness: .65, metalness: .18 });
+        const mesh = new THREE.Mesh(geo, mat);
+        mesh.position.set(x, h / 2 - 2.1, z);
+        gridGroup.add(mesh);
+        buildings.push(mesh);
+      }
+    }
+
+    const lineMaterial = new THREE.LineBasicMaterial({ color: 0x265d8f, transparent:true, opacity:.5 });
+    for(let i = -20; i <= 20; i += 2){
+      const pointsA = [new THREE.Vector3(-22, -2.05, i), new THREE.Vector3(22, -2.05, i)];
+      const pointsB = [new THREE.Vector3(i, -2.05, -22), new THREE.Vector3(i, -2.05, 22)];
+      heroScene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pointsA), lineMaterial));
+      heroScene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pointsB), lineMaterial));
+    }
+
+    const particlesGeom = new THREE.BufferGeometry();
+    const particlesCount = 220;
+    const posArray = new Float32Array(particlesCount * 3);
+    for(let i = 0; i < particlesCount * 3; i += 3){
+      posArray[i] = (Math.random() - 0.5) * 32;
+      posArray[i + 1] = Math.random() * 10 - 2;
+      posArray[i + 2] = (Math.random() - 0.5) * 28;
+    }
+    particlesGeom.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const particlesMat = new THREE.PointsMaterial({ color: 0x76dfff, size: 0.06, transparent: true, opacity: .8 });
+    const particles = new THREE.Points(particlesGeom, particlesMat);
+    heroScene.add(particles);
+
+    let mouseX = 0;
+    let mouseY = 0;
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    function animateHero(){
+      requestAnimationFrame(animateHero);
+      const t = performance.now() * 0.00035;
+      buildings.forEach((b, i) => {
+        b.position.y += Math.sin(t * 4 + i) * 0.0014;
+        b.rotation.y = Math.sin(t * 3 + i) * 0.03;
+      });
+      particles.rotation.y += 0.0009;
+      particles.rotation.x = Math.sin(t) * 0.04;
+      heroCamera.position.x += ((mouseX * 1.3) - heroCamera.position.x) * 0.025;
+      heroCamera.position.y += (((mouseY * 0.9) + 1.6) - heroCamera.position.y) * 0.025;
+      heroCamera.lookAt(0, 0, 0);
+      heroRenderer.render(heroScene, heroCamera);
+    }
+    animateHero();
+
+    // LOAD DIAGRAM CANVAS
+    const canvas = document.getElementById('loadCanvas');
+    const ctx = canvas.getContext('2d');
+    let arrowPhase = 0;
+
+    function roundRect(x, y, w, h, r){
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    function drawLoadDiagram(){
+      const w = canvas.width;
+      const h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      const grad = ctx.createLinearGradient(0, 0, w, 0);
+      grad.addColorStop(0, 'rgba(108,231,255,.15)');
+      grad.addColorStop(.5, 'rgba(89,183,255,.06)');
+      grad.addColorStop(1, 'rgba(150,116,255,.12)');
+      ctx.fillStyle = grad;
+      roundRect(12, 12, w - 24, h - 24, 26);
+      ctx.fill();
+
+      const beamY = 165;
+      ctx.strokeStyle = '#d9e9ff';
+      ctx.lineWidth = 6;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(90, beamY);
+      ctx.lineTo(w - 90, beamY);
+      ctx.stroke();
+
+      ctx.fillStyle = '#8ccfff';
+      ctx.beginPath();
+      ctx.moveTo(110, beamY + 4);
+      ctx.lineTo(82, beamY + 36);
+      ctx.lineTo(138, beamY + 36);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(w - 110, beamY + 24, 16, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#050813';
+      ctx.beginPath();
+      ctx.arc(w - 110, beamY + 24, 7, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.font = '600 18px Inter';
+      ctx.fillStyle = '#dcecff';
+      ctx.fillText('w', w / 2 - 8, 58);
+
+      const arrowStart = 150;
+      const arrowEnd = w - 150;
+      for(let x = arrowStart; x <= arrowEnd; x += 58){
+        const bounce = Math.sin(arrowPhase + x * 0.02) * 4;
+        const top = 70 + bounce;
+        ctx.strokeStyle = '#59b7ff';
+        ctx.lineWidth = 3.2;
+        ctx.beginPath();
+        ctx.moveTo(x, top);
+        ctx.lineTo(x, beamY - 10);
+        ctx.stroke();
+
+        ctx.fillStyle = '#6ce7ff';
+        ctx.beginPath();
+        ctx.moveTo(x, beamY - 10);
+        ctx.lineTo(x - 6, beamY - 22);
+        ctx.lineTo(x + 6, beamY - 22);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      ctx.strokeStyle = 'rgba(108,231,255,.22)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([8, 10]);
+      ctx.beginPath();
+      ctx.moveTo(110, beamY + 55);
+      ctx.lineTo(w - 110, beamY + 55);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.font = '500 14px Inter';
+      ctx.fillStyle = '#9ab0d0';
+      ctx.fillText('Simply supported beam with distributed load', 28, h - 28);
+    }
+
+    function animateLoadDiagram(){
+      arrowPhase += 0.08;
+      drawLoadDiagram();
+      requestAnimationFrame(animateLoadDiagram);
+    }
+    animateLoadDiagram();
+
+    // BRIDGE THREE SCENE
+    const bridgeContainer = document.getElementById('bridgeScene');
+    const bridgeScene = new THREE.Scene();
+    const bridgeCamera = new THREE.PerspectiveCamera(52, bridgeContainer.clientWidth / bridgeContainer.clientHeight, 0.1, 1000);
+    const bridgeRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    bridgeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
+    bridgeRenderer.setSize(bridgeContainer.clientWidth, bridgeContainer.clientHeight);
+    bridgeContainer.appendChild(bridgeRenderer.domElement);
+
+    bridgeCamera.position.set(0, 4, 14);
+    bridgeScene.add(new THREE.AmbientLight(0xffffff, 0.72));
+    const bridgeLight = new THREE.DirectionalLight(0xb9e6ff, 1.2);
+    bridgeLight.position.set(6, 8, 10);
+    bridgeScene.add(bridgeLight);
+
+    const water = new THREE.Mesh(
+      new THREE.PlaneGeometry(40, 20),
+      new THREE.MeshStandardMaterial({ color: 0x071624, transparent: true, opacity: .95 })
+    );
+    water.rotation.x = -Math.PI / 2;
+    water.position.y = -2;
+    bridgeScene.add(water);
+
+    const deck = new THREE.Mesh(
+      new THREE.BoxGeometry(11, .36, 1.4),
+      new THREE.MeshStandardMaterial({ color: 0x5ab7ff, metalness: .25, roughness: .42 })
+    );
+    deck.position.y = .4;
+    bridgeScene.add(deck);
+
+    const towerGeom = new THREE.BoxGeometry(.48, 4.8, .48);
+    const towerMat = new THREE.MeshStandardMaterial({ color: 0xeaf4ff, metalness: .2, roughness: .5 });
+    const towers = [];
+    [-3.3, 3.3].forEach(x => {
+      const tower = new THREE.Mesh(towerGeom, towerMat);
+      tower.position.set(x, 2.7, 0);
+      bridgeScene.add(tower);
+      towers.push(tower);
+    });
+
+    const cableMat = new THREE.LineBasicMaterial({ color: 0x9bdcff, transparent: true, opacity: .95 });
+    const cableLines = [];
+    function addCable(x1, y1, z1, x2, y2, z2){
+      const geo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(x1, y1, z1),
+        new THREE.Vector3(x2, y2, z2)
+      ]);
+      const line = new THREE.Line(geo, cableMat);
+      bridgeScene.add(line);
+      cableLines.push(line);
+    }
+
+    [-4.7,-3.7,-2.7,-1.7,-.7,.7,1.7,2.7,3.7,4.7].forEach(x => {
+      const anchorY = .72;
+      const towerTopX = x < 0 ? -3.3 : 3.3;
+      addCable(towerTopX, 5.1, 0, x, anchorY, 0);
+    });
+
+    const roadStripeMat = new THREE.MeshStandardMaterial({ color: 0xf2fbff, emissive: 0x264b68, emissiveIntensity:.25 });
+    for(let x = -4.6; x <= 4.6; x += 1.15){
+      const stripe = new THREE.Mesh(new THREE.BoxGeometry(.45, .03, .12), roadStripeMat);
+      stripe.position.set(x, .61, 0);
+      bridgeScene.add(stripe);
+    }
+
+    const skylineGroup = new THREE.Group();
+    bridgeScene.add(skylineGroup);
+    for(let i = 0; i < 22; i++){
+      const h = Math.random() * 3.5 + 1;
+      const b = new THREE.Mesh(
+        new THREE.BoxGeometry(0.7, h, 0.7),
+        new THREE.MeshStandardMaterial({ color: 0x13253d, roughness:.7, metalness:.08 })
+      );
+      b.position.set((Math.random() - .5) * 26, h / 2 - 1.4, -5 - Math.random() * 6);
+      skylineGroup.add(b);
+    }
+
+    function animateBridge(){
+      requestAnimationFrame(animateBridge);
+      const t = performance.now() * 0.00045;
+      deck.rotation.y = Math.sin(t) * 0.08;
+      towers.forEach((tower, i) => {
+        tower.rotation.z = Math.sin(t * 2.2 + i) * 0.01;
+      });
+      bridgeCamera.position.x = Math.sin(t * 0.8) * 1.3;
+      bridgeCamera.lookAt(0, 1.3, 0);
+      bridgeRenderer.render(bridgeScene, bridgeCamera);
+    }
+    animateBridge();
+
+    function handleResize(){
+      heroCamera.aspect = window.innerWidth / window.innerHeight;
+      heroCamera.updateProjectionMatrix();
+      heroRenderer.setSize(window.innerWidth, window.innerHeight);
+
+      const w = bridgeContainer.clientWidth;
+      const h = bridgeContainer.clientHeight;
+      bridgeCamera.aspect = w / h;
+      bridgeCamera.updateProjectionMatrix();
+      bridgeRenderer.setSize(w, h);
+    }
+    window.addEventListener('resize', handleResize);
+  </script>
 </body>
 </html>
-```
