@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ashim Panthi | Structural Engineer</title>
+<title>Ashim Panthi | Structural Engineer (EIT)</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <style>
 
@@ -19,7 +22,7 @@ scroll-behavior:smooth;
 
 body{
 font-family:Poppins;
-background:#050a12;
+background:#060b13;
 color:white;
 overflow-x:hidden;
 }
@@ -34,7 +37,7 @@ padding:20px 10%;
 position:fixed;
 width:100%;
 top:0;
-background:rgba(5,10,18,.8);
+background:rgba(5,10,18,.7);
 backdrop-filter:blur(10px);
 z-index:1000;
 }
@@ -45,7 +48,7 @@ font-weight:600;
 }
 
 nav a{
-margin-left:30px;
+margin-left:25px;
 text-decoration:none;
 color:white;
 transition:.3s;
@@ -64,16 +67,20 @@ align-items:center;
 justify-content:center;
 text-align:center;
 position:relative;
-overflow:hidden;
 }
 
 .hero{
-z-index:5;
-max-width:700px;
+z-index:3;
+max-width:750px;
 }
 
 .hero h1{
 font-size:64px;
+margin-bottom:10px;
+}
+
+.hero h3{
+color:#3ba7ff;
 margin-bottom:20px;
 }
 
@@ -84,150 +91,40 @@ margin-bottom:30px;
 
 .btn{
 background:#3ba7ff;
-padding:14px 36px;
+padding:14px 34px;
 border-radius:6px;
 text-decoration:none;
 color:white;
 }
 
-/* ENGINEERING GRID */
+/* 3D CANVAS */
+
+#scene{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:1;
+}
+
+/* GRID BACKGROUND */
 
 .grid{
 position:absolute;
 width:200%;
 height:200%;
 background-image:
-linear-gradient(#18263a 1px, transparent 1px),
-linear-gradient(90deg,#18263a 1px, transparent 1px);
+linear-gradient(#162133 1px, transparent 1px),
+linear-gradient(90deg,#162133 1px, transparent 1px);
 background-size:70px 70px;
-opacity:.2;
-animation:gridMove 30s linear infinite;
+opacity:.15;
+animation:gridMove 25s linear infinite;
 }
 
 @keyframes gridMove{
 0%{transform:translate(0,0)}
 100%{transform:translate(-70px,-70px)}
-}
-
-/* EARTHQUAKE WAVES */
-
-.wave{
-position:absolute;
-bottom:0;
-width:100%;
-height:20px;
-background:#3ba7ff;
-opacity:.3;
-animation:waveMove 4s infinite linear;
-}
-
-.wave:nth-child(2){
-bottom:8px;
-animation-delay:1s;
-}
-
-.wave:nth-child(3){
-bottom:16px;
-animation-delay:2s;
-}
-
-@keyframes waveMove{
-
-0%{transform:scaleX(1) translateX(0)}
-
-50%{transform:scaleX(1.3) translateX(-20px)}
-
-100%{transform:scaleX(1) translateX(0)}
-
-}
-
-/* CITY */
-
-.city{
-position:absolute;
-bottom:0;
-width:100%;
-display:flex;
-justify-content:center;
-gap:40px;
-align-items:flex-end;
-height:240px;
-}
-
-/* BUILDINGS */
-
-.building{
-width:70px;
-background:#111d30;
-border:2px solid #233654;
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-padding:6px;
-position:relative;
-transform-origin:bottom;
-}
-
-/* WINDOWS */
-
-.window{
-width:8px;
-height:8px;
-background:#3ba7ff;
-margin:3px;
-opacity:.7;
-}
-
-/* BUILDING HEIGHTS */
-
-.b1{height:140px;}
-.b2{height:190px;}
-.b3{height:120px;}
-.b4{height:210px;}
-.b5{height:160px;}
-.b6{height:180px;}
-
-/* STRUCTURAL SWAY */
-
-@keyframes sway1{
-0%{transform:rotate(0)}
-50%{transform:rotate(.8deg)}
-100%{transform:rotate(0)}
-}
-
-@keyframes sway2{
-0%{transform:rotate(0)}
-50%{transform:rotate(-1deg)}
-100%{transform:rotate(0)}
-}
-
-@keyframes sway3{
-0%{transform:rotate(0)}
-50%{transform:rotate(.5deg)}
-100%{transform:rotate(0)}
-}
-
-.b1{animation:sway1 4s infinite}
-.b2{animation:sway2 3s infinite}
-.b3{animation:sway3 5s infinite}
-.b4{animation:sway1 6s infinite}
-.b5{animation:sway2 4.5s infinite}
-.b6{animation:sway3 3.5s infinite}
-
-/* PARTICLES */
-
-.particle{
-position:absolute;
-width:5px;
-height:5px;
-background:#3ba7ff;
-border-radius:50%;
-animation:float 8s infinite ease-in-out;
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-40px)}
 }
 
 /* SECTIONS */
@@ -238,11 +135,11 @@ padding:120px 10%;
 
 h2{
 font-size:36px;
-margin-bottom:40px;
+margin-bottom:50px;
 text-align:center;
 }
 
-/* CARDS */
+/* GLASS CARDS */
 
 .card{
 background:rgba(255,255,255,.05);
@@ -262,8 +159,24 @@ box-shadow:0 20px 40px rgba(0,0,0,.6);
 
 .project-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:30px;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:35px;
+}
+
+/* PROJECT IMAGE PLACEHOLDER */
+
+.project-img{
+width:100%;
+height:180px;
+background:#111a28;
+border-radius:8px;
+margin-bottom:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#3ba7ff;
+font-size:14px;
+border:1px dashed #3ba7ff;
 }
 
 /* TIMELINE */
@@ -291,15 +204,9 @@ top:5px;
 border-radius:50%;
 }
 
-/* CONTACT */
-
-#contact{
-text-align:center;
-}
-
 footer{
 text-align:center;
-padding:30px;
+padding:40px;
 opacity:.6;
 }
 
@@ -335,76 +242,32 @@ transform:translateY(0);
 
 </header>
 
-
 <!-- HERO -->
 
 <section id="home">
 
-<div class="grid"></div>
+<div id="scene"></div>
 
-<div class="particle" style="top:20%;left:30%"></div>
-<div class="particle" style="top:70%;left:60%"></div>
-<div class="particle" style="top:40%;left:80%"></div>
+<div class="grid"></div>
 
 <div class="hero">
 
 <h1>Structural Engineering Portfolio</h1>
 
+<h3>Engineer-in-Training (EIT)</h3>
+
 <p>
-Seismic design, structural analysis and earthquake resistant infrastructure.
+Focused on structural analysis, seismic design, and earthquake-resistant infrastructure.
 </p>
 
-<a href="#projects" class="btn">Explore Projects</a>
-
-</div>
-
-<!-- EARTHQUAKE WAVES -->
-
-<div class="wave"></div>
-<div class="wave"></div>
-<div class="wave"></div>
-
-<!-- CITY -->
-
-<div class="city">
-
-<div class="building b1">
-<div class="window"></div><div class="window"></div><div class="window"></div>
-<div class="window"></div><div class="window"></div>
-</div>
-
-<div class="building b2">
-<div class="window"></div><div class="window"></div><div class="window"></div>
-<div class="window"></div><div class="window"></div>
-<div class="window"></div>
-</div>
-
-<div class="building b3">
-<div class="window"></div><div class="window"></div>
-<div class="window"></div>
-</div>
-
-<div class="building b4">
-<div class="window"></div><div class="window"></div><div class="window"></div>
-<div class="window"></div><div class="window"></div>
-<div class="window"></div>
-</div>
-
-<div class="building b5">
-<div class="window"></div><div class="window"></div>
-<div class="window"></div>
-</div>
-
-<div class="building b6">
-<div class="window"></div><div class="window"></div>
-<div class="window"></div>
-<div class="window"></div>
-</div>
+<a href="#projects" class="btn">View Projects</a>
 
 </div>
 
 </section>
 
+
+<!-- ABOUT -->
 
 <section id="about" class="reveal">
 
@@ -414,13 +277,7 @@ Seismic design, structural analysis and earthquake resistant infrastructure.
 
 <p>
 
-Bachelor in Civil Engineering from Tribhuvan University with strong focus on structural modeling, seismic design and earthquake resistant infrastructure.
-
-</p>
-
-<p>
-
-Software: SAP2000 • ETABS • AutoCAD • MATLAB • ArcGIS • Revit
+I am an Engineer-in-Training (EIT) with a Bachelor’s degree in Civil Engineering from Tribhuvan University. My interests lie in structural analysis, seismic engineering, and the design of earthquake-resistant infrastructure. Through academic projects and technical training, I have developed experience in structural modeling and finite element analysis using engineering tools such as SAP2000, ETABS, AutoCAD, MATLAB, and GIS platforms. I am passionate about applying engineering principles to design safe, resilient structures and contributing to the development of sustainable infrastructure in earthquake-prone regions.
 
 </p>
 
@@ -428,6 +285,8 @@ Software: SAP2000 • ETABS • AutoCAD • MATLAB • ArcGIS • Revit
 
 </section>
 
+
+<!-- PROJECTS -->
 
 <section id="projects" class="reveal">
 
@@ -436,29 +295,70 @@ Software: SAP2000 • ETABS • AutoCAD • MATLAB • ArcGIS • Revit
 <div class="project-grid">
 
 <div class="card">
+
+<div class="project-img">
+Project Image Placeholder
+</div>
+
 <h3>Nijgadh International Airport</h3>
-<p>Planning and infrastructure analysis.</p>
+
+<p>
+Comprehensive planning and infrastructure evaluation of Nepal’s proposed international airport including structural considerations.
+</p>
+
 </div>
 
+
 <div class="card">
+
+<div class="project-img">
+Project Image Placeholder
+</div>
+
 <h3>Rammed Earth House</h3>
-<p>Seismic resistant structural design.</p>
+
+<p>
+Seismic resistant housing design integrating traditional Nepali architecture with structural engineering principles.
+</p>
+
 </div>
 
-<div class="card">
-<h3>Steel Structure Volcano Club</h3>
-<p>Earthquake resistant steel structure.</p>
-</div>
 
 <div class="card">
+
+<div class="project-img">
+Project Image Placeholder
+</div>
+
+<h3>Steel Structure – Volcano Club</h3>
+
+<p>
+Structural design of a steel building considering earthquake loads and connection detailing.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="project-img">
+Project Image Placeholder
+</div>
+
 <h3>Madan Bhandari Academy</h3>
-<p>Structural redesign and torsion control.</p>
+
+<p>
+Structural redesign addressing torsional irregularities and architectural modifications.
+</p>
+
 </div>
 
 </div>
 
 </section>
 
+
+<!-- LEADERSHIP -->
 
 <section id="leadership" class="reveal">
 
@@ -467,19 +367,26 @@ Software: SAP2000 • ETABS • AutoCAD • MATLAB • ArcGIS • Revit
 <div class="timeline">
 
 <div class="timeline-item">
-<h3>Gulmi-Kathmandu Student Union</h3>
+<h3>Gulmi–Kathmandu Student Union</h3>
 <p>Member | 2022 – Present</p>
 </div>
 
 <div class="timeline-item">
-<h3>Final Year Project</h3>
+<h3>Final Year Project Team</h3>
 <p>Team Leader</p>
+</div>
+
+<div class="timeline-item">
+<h3>College Survey Camp</h3>
+<p>Captain</p>
 </div>
 
 </div>
 
 </section>
 
+
+<!-- CONTACT -->
 
 <section id="contact">
 
@@ -491,7 +398,7 @@ Software: SAP2000 • ETABS • AutoCAD • MATLAB • ArcGIS • Revit
 
 <footer>
 
-© 2026 Ashim Panthi
+© 2026 Ashim Panthi | Structural Engineer (EIT)
 
 </footer>
 
@@ -507,15 +414,10 @@ let reveals=document.querySelectorAll(".reveal");
 for(let i=0;i<reveals.length;i++){
 
 let windowHeight=window.innerHeight;
-
 let elementTop=reveals[i].getBoundingClientRect().top;
 
-let elementVisible=150;
-
-if(elementTop<windowHeight-elementVisible){
-
+if(elementTop<windowHeight-150){
 reveals[i].classList.add("active");
-
 }
 
 }
@@ -523,6 +425,76 @@ reveals[i].classList.add("active");
 }
 
 window.addEventListener("scroll",reveal);
+
+
+/* THREE JS BUILDING SCENE */
+
+let scene=new THREE.Scene();
+
+let camera=new THREE.PerspectiveCamera(
+75,
+window.innerWidth/window.innerHeight,
+0.1,
+1000
+);
+
+let renderer=new THREE.WebGLRenderer({alpha:true});
+
+renderer.setSize(window.innerWidth,window.innerHeight);
+
+document.getElementById("scene").appendChild(renderer.domElement);
+
+let light=new THREE.PointLight(0xffffff,1);
+
+light.position.set(10,20,20);
+
+scene.add(light);
+
+/* BUILDINGS */
+
+let buildings=[];
+
+for(let i=0;i<10;i++){
+
+let height=Math.random()*3+2;
+
+let geometry=new THREE.BoxGeometry(1,height,1);
+
+let material=new THREE.MeshStandardMaterial({color:0x1f2e45});
+
+let cube=new THREE.Mesh(geometry,material);
+
+cube.position.x=i*2-10;
+
+cube.position.y=height/2-2;
+
+scene.add(cube);
+
+buildings.push(cube);
+
+}
+
+camera.position.z=10;
+
+/* EARTHQUAKE SWAY */
+
+function animate(){
+
+requestAnimationFrame(animate);
+
+let t=Date.now()*0.002;
+
+buildings.forEach((b,i)=>{
+
+b.rotation.z=Math.sin(t+i)*0.05;
+
+});
+
+renderer.render(scene,camera);
+
+}
+
+animate();
 
 </script>
 
